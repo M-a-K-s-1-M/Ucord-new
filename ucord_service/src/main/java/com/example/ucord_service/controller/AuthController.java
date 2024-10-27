@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
@@ -40,7 +41,6 @@ public class AuthController {
         if (userRepository.existsByEmail(createUserRequest.getEmail())) {
             throw new AlreadyExistsException("Email already exists!");
         }
-
         securityService.register(createUserRequest);
 
         return ResponseEntity.ok(new SimpleResponse("User created!"));

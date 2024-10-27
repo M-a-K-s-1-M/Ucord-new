@@ -20,6 +20,6 @@ public class CreateUserRequest {
 
     private String password;
 
-    private Set<RoleType> roles;
+    private RoleType role;
 
 }

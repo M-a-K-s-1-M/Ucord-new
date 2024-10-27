@@ -21,6 +21,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -69,7 +70,7 @@ public class SecurityService {
                 .email(createUserRequest.getEmail())
                 .password(passwordEncoder.encode(createUserRequest.getPassword()))
                 .build();
-        user.setRoles(createUserRequest.getRoles());
+        user.setRoles(Collections.singleton(createUserRequest.getRole()));
 
         userRepository.save(user);
     }

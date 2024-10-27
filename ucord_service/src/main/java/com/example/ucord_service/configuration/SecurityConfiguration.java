@@ -75,7 +75,7 @@ public class SecurityConfiguration {
                 .sessionManagement(configurer -> configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()));;
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()));
 
         return http.build();
     }
