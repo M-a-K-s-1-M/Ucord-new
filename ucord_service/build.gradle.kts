@@ -29,6 +29,9 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 
+	// https://springdoc.org/v2/
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0")
+
 	implementation("redis.clients:jedis")
 	implementation("io.jsonwebtoken:jjwt:0.9.1")
 	implementation("javax.xml.bind:jaxb-api:2.3.1")

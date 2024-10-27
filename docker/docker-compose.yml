@@ -25,16 +25,22 @@ services:
       dockerfile: ..\ucord_service\Dockerfile
     container_name: app
     depends_on:
+      - redis
       - postgres
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/ucord_db
+      - SPRING_DATA_REDIS_HOST=redis
+      - SPRING_DATA_REDIS_PORT=6379
+
     ports:
       - "8080:8080"
     networks:
       - ucord-service-net
     restart: on-failure
+
+
 
 
 networks:
