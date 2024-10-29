@@ -19,10 +19,10 @@ services:
     networks:
       - ucord-service-net
 
-  ucord_service:
+  ucord_auth_service:
     build:
-      context: ..\ucord_service
-      dockerfile: ..\ucord_service\Dockerfile
+      context: ..\ucord_auth_service
+      dockerfile: ..\ucord_auth_service\Dockerfile
     container_name: app
     depends_on:
       - redis
@@ -41,6 +41,18 @@ services:
     networks:
       - ucord-service-net
     restart: on-failure
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80" # Порт, на который будет проброшен Nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro # Монтируем конфигурацию Nginx
+    depends_on:
+      - ucord_auth_service
+    networks:
+      - ucord-service-net
 
 
 
