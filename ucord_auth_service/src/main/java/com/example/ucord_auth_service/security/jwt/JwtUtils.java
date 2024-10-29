@@ -32,7 +32,6 @@ public class JwtUtils {
 
     //TODO: Можно поменять на Email по необходимости
     public String generateTokenFromEmail(String email) {
-        System.out.println(email + "jfdlqkwfjeklwfjn");
         return Jwts.builder()
                 .setSubject(email)
                 .claim("email", email)
@@ -43,7 +42,6 @@ public class JwtUtils {
     }
     //TODO: Можно поменять на Email по необходимости
     public String getEmail(String token) {
-        System.out.println("jfdlqkwfjeklwfjn" + Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().get("email", String.class));
         return Jwts.parser().setSigningKey(jwtSecret)
                 .parseClaimsJws(token).getBody().get("email", String.class);
     }

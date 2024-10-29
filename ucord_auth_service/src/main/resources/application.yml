@@ -15,6 +15,6 @@ spring:
 
 app:
   jwt:
-    secret: "someSecretKey"
-    tokenExpiration: 3m
-    refreshTokenExpiration: 30m
+    secret: "${APP_JWT_SECRET:someSecretKey}"
+    tokenExpiration: "${APP_JWT_TOKEN_EXPIRATION:3m}"
+    refreshTokenExpiration: "${APP_JWT_REFRESH_TOKEN_EXPIRATION:30m}"
