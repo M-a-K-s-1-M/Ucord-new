@@ -19,10 +19,10 @@ services:
     networks:
       - ucord-service-net
 
-  ucord_service:
+  ucord_auth_service:
     build:
-      context: ..\ucord_service
-      dockerfile: ..\ucord_service\Dockerfile
+      context: ..\ucord_auth_service
+      dockerfile: ..\ucord_auth_service\Dockerfile
     container_name: app
     depends_on:
       - redis
