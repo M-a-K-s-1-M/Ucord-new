@@ -33,15 +33,14 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/ucord_db
       - SPRING_DATA_REDIS_HOST=redis
       - SPRING_DATA_REDIS_PORT=6379
-
+      - APP_JWT_SECRET=someSecretKey
+      - APP_JWT_TOKEN_EXPIRATION=3m
+      - APP_JWT_REFRESH_TOKEN_EXPIRATION=30m
     ports:
       - "8080:8080"
     networks:
       - ucord-service-net
     restart: on-failure
-
-
-
 
 networks:
   ucord-service-net:
