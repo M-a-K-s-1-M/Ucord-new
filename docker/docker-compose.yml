@@ -42,8 +42,5 @@ services:
       - ucord-service-net
     restart: on-failure
 
-
-
-
 networks:
   ucord-service-net:
