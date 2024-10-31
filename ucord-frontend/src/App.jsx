@@ -1,21 +1,15 @@
-import { useState } from 'react'
 import './App.css'
-import SignInForm from './components/SignInForm'
-import SignUpForm from './components/SignUpForm';
+import SignInSection from './components/Forms/SignInSection/SignInSection.jsx'
+import { Route, Routes } from 'react-router-dom'
+import SignUpSection from './components/Forms/SignUpSection/SignUpSection.jsx'
 
-
-
-function App() {
-  const [reg, setReg] = useState(true);
+export default function App() {
   return (
     <>
-      <button onClick={() => setReg(false)}>Вход</button>
-      <button onClick={() => setReg(true)}>Регестрация</button>
-
-      {reg ? (<SignUpForm />) : (<SignInForm />)}
-
+      <Routes>
+        <Route exact path="/" element={<SignInSection />} />
+        <Route path="/signup" element={<SignUpSection />} />
+      </Routes>
     </>
   )
 }
-
-export default App
