@@ -20,9 +20,11 @@ services:
       - ucord-service-net
 
   ucord_auth_service:
+    #Если во фронте - закоментить build: и поднастройки, разкоментить image:
     build:
       context: ..\ucord_auth_service
       dockerfile: ..\ucord_auth_service\Dockerfile
+    #image: shykamuy/ucord_auth_service
     container_name: app
     depends_on:
       - redis
