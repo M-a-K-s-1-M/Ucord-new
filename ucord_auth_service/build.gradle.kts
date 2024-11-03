@@ -29,12 +29,13 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 
-	// https://springdoc.org/v2/
 	implementation("io.springfox:springfox-boot-starter:3.0.0")
 	implementation("redis.clients:jedis")
 	implementation("io.jsonwebtoken:jjwt:0.9.1")
+	testImplementation("com.fasterxml.jackson.core:jackson-databind")
 	implementation("javax.xml.bind:jaxb-api:2.3.1")
 	implementation("javax.servlet:javax.servlet-api:4.0.1")
+
 
 	compileOnly("org.projectlombok:lombok")
 	runtimeOnly("org.postgresql:postgresql")
