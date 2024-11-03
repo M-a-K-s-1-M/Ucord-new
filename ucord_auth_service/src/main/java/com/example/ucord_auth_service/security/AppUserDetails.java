@@ -2,6 +2,7 @@ package com.example.ucord_auth_service.security;
 
 import com.example.ucord_auth_service.model.entity.User;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

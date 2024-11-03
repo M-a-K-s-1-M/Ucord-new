@@ -1,5 +1,9 @@
 package com.example.ucord_auth_service.security.jwt;
 
+<<<<<<< HEAD:ucord_auth_service/src/main/java/com/example/ucord_auth_service/security/jwt/JwtUtils.java
+=======
+import com.example.ucord_auth_service.model.entity.User;
+>>>>>>> origin/nginx+cookie:ucord_service/src/main/java/com/example/ucord_service/security/jwt/JwtUtils.java
 import com.example.ucord_auth_service.security.AppUserDetails;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -24,24 +28,27 @@ public class JwtUtils {
     @Value("${app.jwt.tokenExpiration}")
     private Duration tokenExpiration;
 
-    public String generateJwtToken(AppUserDetails userDetails) {
-        return generateTokenFromUsername(userDetails.getUsername());
-    }
+/*    public String generateJwtToken(AppUserDetails userDetails) {
+        return generateTokenFromEmail(userDetails);
+    }*/
 
 
     //TODO: Можно поменять на Email по необходимости
-    public String generateTokenFromUsername(String username) {
+    public String generateTokenFromEmail(String email) {
+        System.out.println(email + "jfdlqkwfjeklwfjn");
         return Jwts.builder()
-                .setSubject(username)
+                .setSubject(email)
+                .claim("email", email)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(new Date().getTime() + tokenExpiration.toMillis()))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }
     //TODO: Можно поменять на Email по необходимости
-    public String getUsername(String token) {
+    public String getEmail(String token) {
+        System.out.println("jfdlqkwfjeklwfjn" + Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().get("email", String.class));
         return Jwts.parser().setSigningKey(jwtSecret)
-                .parseClaimsJws(token).getBody().getSubject();
+                .parseClaimsJws(token).getBody().get("email", String.class);
     }
 
     public boolean validate(String authToken) {

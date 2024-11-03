@@ -34,13 +34,25 @@ services:
       - SPRING_DATA_REDIS_HOST=redis
       - SPRING_DATA_REDIS_PORT=6379
       - APP_JWT_SECRET=someSecretKey
-      - APP_JWT_TOKEN_EXPIRATION=3m
-      - APP_JWT_REFRESH_TOKEN_EXPIRATION=30m
+      - APP_JWT_TOKEN_EXPIRATION=30m
+      - APP_JWT_REFRESH_TOKEN_EXPIRATION=1d
     ports:
       - "8080:8080"
     networks:
       - ucord-service-net
     restart: on-failure
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - ucord_auth_service
+    networks:
+      - ucord-service-net
 
 
 
