@@ -1,6 +1,8 @@
 package com.example.ucord_auth_service.security;
 
 
+import com.example.ucord_auth_service.DTO.AuthResponseDTO;
+import com.example.ucord_auth_service.DTO.RefreshTokenDTO;
 import com.example.ucord_auth_service.DTO.request.CreateUserRequest;
 import com.example.ucord_auth_service.DTO.request.LoginRequest;
 import com.example.ucord_auth_service.DTO.request.RefreshTokenRequest;
@@ -40,7 +42,7 @@ public class SecurityService {
 
     private final PasswordEncoder passwordEncoder;
 
-    public AuthResponse authenticateUser(LoginRequest loginRequest) {
+    public AuthResponseDTO authenticateUser(LoginRequest loginRequest) {
         // Проверяем, что loginRequest содержит email
         if (loginRequest.getEmail() == null || loginRequest.getPassword() == null) {
             throw new IllegalArgumentException("Email and password must not be null");
@@ -60,7 +62,7 @@ public class SecurityService {
 
         RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
 
-        return AuthResponse.builder()
+        return AuthResponseDTO.builder()
                 .id(userDetails.getId())
                 .token(jwtUtils.generateTokenFromEmail(loginRequest.getEmail()))
                 .refreshToken(refreshToken.getToken())
@@ -80,7 +82,7 @@ public class SecurityService {
         userRepository.save(user);
     }
 
-    public RefreshTokenResponse refreshToken(String requestRefreshToken) {
+    public RefreshTokenDTO refreshToken(String requestRefreshToken) {
 
         return refreshTokenService.findByRefreshToken(requestRefreshToken)
                 .map(refreshTokenService::checkRefreshToken)
@@ -90,7 +92,7 @@ public class SecurityService {
                             new RefreshTokenException("Exception trying to get token for userId: " + userId));
                     String token = jwtUtils.generateTokenFromEmail(tokenOwner.getEmail());
 
-                    return new RefreshTokenResponse(token, refreshTokenService.createRefreshToken(userId).getToken());
+                    return new RefreshTokenDTO(token, refreshTokenService.createRefreshToken(userId).getToken());
                 }).orElseThrow(() -> new RefreshTokenException(requestRefreshToken, "Refresh token not found"));
     }
 

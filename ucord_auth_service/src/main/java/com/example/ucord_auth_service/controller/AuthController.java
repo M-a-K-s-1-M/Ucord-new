@@ -1,11 +1,15 @@
 package com.example.ucord_auth_service.controller;
 
+import com.example.ucord_auth_service.DTO.AuthResponseDTO;
+import com.example.ucord_auth_service.DTO.RefreshTokenDTO;
 import com.example.ucord_auth_service.DTO.request.CreateUserRequest;
 import com.example.ucord_auth_service.DTO.request.LoginRequest;
 import com.example.ucord_auth_service.DTO.response.AuthResponse;
 import com.example.ucord_auth_service.DTO.response.RefreshTokenResponse;
 import com.example.ucord_auth_service.DTO.response.SimpleResponse;
 import com.example.ucord_auth_service.exception.AlreadyExistsException;
+import com.example.ucord_auth_service.model.RoleType;
+import com.example.ucord_auth_service.repository.GroupRepository;
 import com.example.ucord_auth_service.repository.UserRepository;
 import com.example.ucord_auth_service.security.SecurityService;
 import jakarta.servlet.http.Cookie;
@@ -14,6 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,21 +35,29 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     private final UserRepository userRepository;
+
+    private final GroupRepository groupRepository;
     private final SecurityService securityService;
 
     @PostMapping("/signin")
     public ResponseEntity<AuthResponse> authUser(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
-        AuthResponse authResponse = securityService.authenticateUser(loginRequest);
+        AuthResponseDTO authResponse = securityService.authenticateUser(loginRequest);
 
-        // Сохранение refresh token в cookie
+
         Cookie cookie = new Cookie("refreshToken", authResponse.getRefreshToken());
         cookie.setHttpOnly(true);
         cookie.setSecure(true); // Убедитесь, что это установлено в true в продакшене
-        cookie.setPath("/"); // Устанавливаем путь для доступности cookie
-        cookie.setMaxAge(60 * 60 * 24); // Устанавливаем время жизни cookie (например, 1 день)
+        cookie.setPath("/");
+        cookie.setMaxAge(60 * 60 * 24);
         response.addCookie(cookie);
 
-        return ResponseEntity.ok(authResponse);
+        return ResponseEntity.ok(new AuthResponse(
+                authResponse.getId(),
+                authResponse.getToken(),
+                authResponse.getUsername(),
+                authResponse.getEmail(),
+                authResponse.getRoles()
+        ));
     }
 
     @PostMapping("/register")
@@ -54,6 +67,10 @@ public class AuthController {
         }
         if (userRepository.existsByEmail(createUserRequest.getEmail())) {
             throw new AlreadyExistsException("Email already exists!");
+        }
+        if (groupRepository.findByName(createUserRequest.getGroupName()).isEmpty()
+                && createUserRequest.getRole().equals(RoleType.ROLE_USER)) {
+            throw new RuntimeException("Group is not found!");
         }
         securityService.register(createUserRequest);
 
@@ -78,8 +95,8 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
 
-        RefreshTokenResponse refreshTokenResponse = securityService.refreshToken(refreshToken);
-        return ResponseEntity.ok(refreshTokenResponse);
+        RefreshTokenDTO refreshTokenResponse = securityService.refreshToken(refreshToken);
+        return ResponseEntity.ok(new RefreshTokenResponse(refreshTokenResponse.getAccessToken()));
     }
 
     @PostMapping("/logout")
