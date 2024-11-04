@@ -26,6 +26,8 @@
     margin-bottom: 7px;
     border: none;
     text-align: center;
+    outline-color: #371bb4;
+    border-radius: 5px;
 }
 
 .sign-in .auth-form label:last-of-type input {
