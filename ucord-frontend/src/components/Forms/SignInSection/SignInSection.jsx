@@ -1,32 +1,57 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react'
 import './SignInSection.css'
 import axios from 'axios';
 import SubmitButton from '../../Buttons/Submit/SubmitButton';
+import AuthService from '../../../services/AuthService';
 
 // const apiUrl = 'http://localhost:8080/api/v1/auth/signin';
 
 export default function SignInForm() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [responseData, setResponseData] = useState(null);
+    // const [responseData, setResponseData] = useState(null);
+    const navigate = useNavigate();
 
     const handleSubmit = async (evt) => {
-        evt.PreventDefault();
+        evt.preventDefault();
 
         try {
             const response = await axios.post('http://localhost:8080/api/v1/auth/signin', {
                 email,
                 password
-            });
+            },
+                {
+                    withCredentials: true
+                });
 
-            localStorage.setItem('token', response.data.token);
-            // localStorage.setItem('refreshToken', response.data.refreshToken)
+            if (response.status === 200) {
+                localStorage.setItem('token', response.data.token);
 
-            setResponseData(response.data);
+                navigate('/main')
 
+                // const token = AuthService.getAccessToken();
+                // const responseNew = await axios.get('http://localhost:8080/api/v1/app/user',
+                //     {
+                //         headers: {
+                //             Authorization: `Bearer ${token}`
+                //         }
+                //     })
+
+
+            }
         } catch (error) {
             console.error('Ошибка: ', error);
+
+            // Здесь можно дополнительно обработать ошибки и попробовать обновить токен
+            const refreshResponse = await axios.post('http://localhost:8080/api/v1/auth/refresh-token', {
+                withCredentials: true,
+            });
+
+            if (refreshResponse.data.token) {
+                localStorage.setItem('token', refreshResponse.data.accessToken);
+            }
+            console.log('токен обновлён')
         }
     }
 
@@ -64,9 +89,9 @@ export default function SignInForm() {
                 <SubmitButton>Вход</SubmitButton>
             </form>
 
-            <p>У меня нет аккаунта <Link to='/signup'>Зарегистрироваться</Link></p>
-
-            {responseData && <pre>{JSON.stringify(responseData, null, 2)}</pre>}
+            <p>У меня нет аккаунта <Link to='/'>Зарегистрироваться</Link></p>
+            {/* 
+            {responseData && <pre>{JSON.stringify(responseData, null, 2)}</pre>} */}
         </section>
     )
 }

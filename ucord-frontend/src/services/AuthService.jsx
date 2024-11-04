@@ -8,9 +8,8 @@ class AuthService {
             email,
             password,
         }).then(response => {
-            if (response.data.accessToken && response.data.refreshToken) {
-                localStorage.setItem('accessToken', response.data.accessToken);
-                localStorage.setItem('refreshToken', response.data.refreshToken);
+            if (response.data.token) {
+                localStorage.setItem('token', response.data.accessToken);
             }
             return response.data;
         });
@@ -18,31 +17,25 @@ class AuthService {
 
     // Удаление access и refresh токена из localStorage
     static logout() {
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('token');
     }
 
     // Возварщает access токен из localStorage
     static getAccessToken() {
-        return localStorage.getItem('accessToken') ?? null;
-    }
-
-    // Возварщает refresh токен из localStorage
-    static getRefreshToken() {
-        return localStorage.getItem('refreshToken') ?? null;
+        return localStorage.getItem('token'); //?? null;
     }
 
     // Обновляет access и refresh токен и добавляет их в localStorage
-    static refreshTokens(refreshToken) {
-        return axios.post(`http://localhost:8080/api/v1/auth/refresh-token`, {
-            refreshToken,
-        }).then(response => {
-            if (response.data.accessToken && response.data.refreshToken) {
-                localStorage.setItem('accessToken', response.data.accessToken);
-                localStorage.setItem('refreshToken', response.data.refreshToken);
-            }
-            return response.data;
+    static async refreshTokens() {
+        const response = await axios.post('http://localhost:8080/api/v1/auth/refresh-token', {
+            withCredentials: true,
         });
+
+        if (response.data.accessToken) {
+            localStorage.setItem('token', response.data.accessToken);
+        }
+
+        return response.data;
     }
 }
 
