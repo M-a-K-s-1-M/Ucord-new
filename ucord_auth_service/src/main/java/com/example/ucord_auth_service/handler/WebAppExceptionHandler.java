@@ -3,6 +3,7 @@ package com.example.ucord_auth_service.handler;
 
 import com.example.ucord_auth_service.exception.AlreadyExistsException;
 import com.example.ucord_auth_service.exception.EntityNotFoundException;
+import com.example.ucord_auth_service.exception.GroupNotFoundException;
 import com.example.ucord_auth_service.exception.RefreshTokenException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,11 @@ public class WebAppExceptionHandler {
 
     @ExceptionHandler(value = EntityNotFoundException.class)
     public ResponseEntity<ErrorResponseBody> notFoundHandler(EntityNotFoundException ex, WebRequest request) {
+        return buildResponse(HttpStatus.NOT_FOUND, ex, request);
+    }
+
+    @ExceptionHandler(value = GroupNotFoundException.class)
+    public ResponseEntity<ErrorResponseBody> groupNotFoundHandler(GroupNotFoundException ex, WebRequest request) {
         return buildResponse(HttpStatus.NOT_FOUND, ex, request);
     }
 

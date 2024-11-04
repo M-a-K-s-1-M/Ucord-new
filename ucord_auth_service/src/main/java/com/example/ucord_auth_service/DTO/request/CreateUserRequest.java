@@ -18,6 +18,8 @@ public class CreateUserRequest {
 
     private String password;
 
+    private String groupName;
+
     private RoleType role;
 
 }

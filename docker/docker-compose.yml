@@ -19,10 +19,16 @@ services:
     networks:
       - ucord-service-net
 
+
+    #Если во фронте - закоментить build: и поднастройки, разкоментить image:
+    #Сбилдить образ: docker build -t shykamuy/ucord_auth_service .
+    #Пушнуть: docker push shykamuy/ucord_auth_service
+
   ucord_auth_service:
     build:
       context: ..\ucord_auth_service
       dockerfile: ..\ucord_auth_service\Dockerfile
+    #image: shykamuy/ucord_auth_service
     container_name: app
     depends_on:
       - redis
@@ -46,9 +52,9 @@ services:
     image: nginx:latest
     container_name: nginx
     ports:
-      - "80:80" # Порт, на который будет проброшен Nginx
+      - "80:80"
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro # Монтируем конфигурацию Nginx
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
       - ucord_auth_service
     networks:

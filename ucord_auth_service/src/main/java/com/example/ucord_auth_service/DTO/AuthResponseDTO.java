@@ -1,4 +1,4 @@
-package com.example.ucord_auth_service.DTO.response;
+package com.example.ucord_auth_service.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,11 +11,14 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class AuthResponse {
+public class AuthResponseDTO {
+
 
     private Long id;
 
     private String token;
+
+    private String refreshToken;
 
     private String username;
 

@@ -1,4 +1,4 @@
-package com.example.ucord_auth_service.DTO.response;
+package com.example.ucord_auth_service.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,8 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RefreshTokenResponse {
+public class RefreshTokenDTO {
 
     private String accessToken;
 
+    private String refreshToken;
 }
