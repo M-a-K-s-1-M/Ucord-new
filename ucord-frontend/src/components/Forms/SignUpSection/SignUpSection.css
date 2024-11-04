@@ -37,11 +37,14 @@
     margin-bottom: 7px;
     border: none;
     text-align: center;
-    margin-bottom: 50px;
     outline-color: #371bb4;
     border-radius: 5px;
 }
 
 .sign-up p {
     text-align: center;
+}
+
+.sign-up button {
+    margin-top: 45px;
 }
