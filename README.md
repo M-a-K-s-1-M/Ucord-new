@@ -13,6 +13,6 @@ docker image ls - лист образов
 
 docker container ls - лист контенеров 
 
-docker container ls -a - лист остоновленных контенеров
+docker container ls -a - лист остановленных контенеров
 
 docker rmi $imagename/$imageid - удалить образ по имени/id
