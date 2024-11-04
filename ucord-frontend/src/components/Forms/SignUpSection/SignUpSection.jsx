@@ -28,17 +28,18 @@ export default function SignUpForm() {
             const response = await axios.post('http://localhost:8080/api/v1/auth/register',
                 {
                     username: usernameCorrect,
-                    email,
-                    password,
-                    role,
-                    group,
+                    email: inputInfo.email,
+                    password: inputInfo.password,
+                    role: inputInfo.role,
+                    groupName: inputInfo.group,
                 });
 
-            if (response.data.access_token) {
-                localStorage.setItem('access_token', response.data.access_token);
+
+            if (response.status === 200) {
+                // localStorage.setItem('access_token', response.data.access_token);
                 navigate('/signin');
             } else {
-                throw new Error('Не удалось получить access токен')
+                throw new Error('Не удалось зарегать')
             }
         } catch (error) {
             console.error('Ошибка при регистрации:', error);

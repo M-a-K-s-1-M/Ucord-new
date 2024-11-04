@@ -3,18 +3,18 @@ import SignInSection from './components/Forms/SignInSection/SignInSection.jsx'
 import { Route, Routes } from 'react-router-dom'
 import SignUpSection from './components/Forms/SignUpSection/SignUpSection.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
-import MainPage from './pages/MainPage.jsx'
+import NotificationsSections from './components/NotificationsSection/NotificationsSection.jsx'
 
 export default function App() {
   return (
     <>
       <Routes>
-        <Route path="/signup" element={<SignUpSection />} />
+        <Route path="/" element={<SignUpSection />} />
         <Route path="/signin" element={<SignInSection />} />
 
         <Route
-          path='/'
-          element={<ProtectedRoute><MainPage /></ProtectedRoute>}
+          path='/main'
+          element={<ProtectedRoute><NotificationsSections /></ProtectedRoute>}
         />
       </Routes >
     </>
