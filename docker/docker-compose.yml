@@ -25,10 +25,10 @@ services:
     #Пушнуть: docker push shykamuy/ucord_auth_service
 
   ucord_auth_service:
-    build:
-      context: ..\ucord_auth_service
-      dockerfile: ..\ucord_auth_service\Dockerfile
-    #image: shykamuy/ucord_auth_service
+#    build:
+#      context: ..\ucord_auth_service
+#      dockerfile: ..\ucord_auth_service\Dockerfile
+    image: shykamuy/ucord_auth_service:latest
     container_name: app
     depends_on:
       - redis

@@ -20,14 +20,14 @@ public class AppController {
         return "Admin response data";
     }
 
-    @GetMapping("/manager")
-    @PreAuthorize("hasRole('MANAGER')")
-    public String moderatorAccess() {
-        return "Manager response data";
+    @GetMapping("/tutor")
+    @PreAuthorize("hasRole('TUTOR')")
+    public String tutorAccess() {
+        return "Tutor response data";
     }
 
     @GetMapping("/user")
-    @PreAuthorize("hasRole('USER') or hasRole('MANAGER') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('USER') or hasRole('TUTOR') or hasRole('ADMIN')")
     public String userAccess() {
         return "User response data";
     }

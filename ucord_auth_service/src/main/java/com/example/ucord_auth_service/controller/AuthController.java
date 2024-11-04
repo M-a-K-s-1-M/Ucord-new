@@ -17,6 +17,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -44,12 +45,16 @@ public class AuthController {
         AuthResponseDTO authResponse = securityService.authenticateUser(loginRequest);
 
 
-        Cookie cookie = new Cookie("refreshToken", authResponse.getRefreshToken());
-        cookie.setHttpOnly(true);
-        cookie.setSecure(true); // Убедитесь, что это установлено в true в продакшене
-        cookie.setPath("/");
-        cookie.setMaxAge(60 * 60 * 24);
-        response.addCookie(cookie);
+        ResponseCookie cookie = ResponseCookie.from("refreshToken", authResponse.getRefreshToken())
+                .httpOnly(true)
+                .secure(true) // Убедитесь, что это установлено в true в продакшене
+                .path("/")
+                .maxAge(60 * 60 * 24)
+                .sameSite("none")
+                .build();
+
+        // Добавляем cookie в ответ
+        response.addHeader("Set-Cookie", cookie.toString());
 
         return ResponseEntity.ok(new AuthResponse(
                 authResponse.getId(),
