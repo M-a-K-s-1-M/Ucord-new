@@ -21,7 +21,7 @@ export default function SignInForm() {
             });
 
             localStorage.setItem('token', response.data.token);
-            localStorage.setItem('refreshToken', response.data.refreshToken)
+            // localStorage.setItem('refreshToken', response.data.refreshToken)
 
             setResponseData(response.data);
 

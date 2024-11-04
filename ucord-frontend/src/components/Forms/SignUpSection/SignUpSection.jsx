@@ -1,22 +1,50 @@
 import { useState } from "react";
 import Input from "../Input";
 import SubmitButton from '../../Buttons/Submit/SubmitButton'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import './SignUpSection.css'
+import axios from "axios";
+import { validateAndJoinFIO } from "../ValidateAndJoinFIO";
 
 export default function SignUpForm() {
+    const navigate = useNavigate();
+    const [errorMessage, setErrorMessage] = useState('')
+
     const [inputInfo, setInputInfo] = useState({
-        firstName: '',
-        lastName: '',
-        patronymic: '',
+        username: '',
         email: '',
         password: '',
         passwordRepeat: '',
-        role: ''
+        group: '',
+        role: 'ROLE_USER'
     });
 
-    function handleSubmit() {
+    async function handleSubmit(evt) {
+        evt.preventDefault();
 
+        const usernameCorrect = validateAndJoinFIO(inputInfo.username);
+
+        try {
+            const response = await axios.post('http://localhost:8080/api/v1/auth/register',
+                {
+                    username: usernameCorrect,
+                    email,
+                    password,
+                    role,
+                    group,
+                });
+
+            if (response.data.access_token) {
+                localStorage.setItem('access_token', response.data.access_token);
+                navigate('/signin');
+            } else {
+                throw new Error('Не удалось получить access токен')
+            }
+        } catch (error) {
+            console.error('Ошибка при регистрации:', error);
+            setErrorMessage('Произошла ошибка при регистрации. Попробуйте еще раз.');
+
+        }
     }
 
     return (
@@ -24,52 +52,18 @@ export default function SignUpForm() {
             <img src='../../../../public/imageAuthorization.png' alt='' />
             <form className="auth-form" onSubmit={handleSubmit}>
 
-                <p>Имя</p>
+                <p>ФИО</p>
                 <Input
                     type='text'
-                    id='firstName'
-                    name='firstName'
+                    id='username'
+                    name='username'
                     autoComplete='off'
-                    value={inputInfo.firstName}
+                    value={setInputInfo.username}
                     onChange={(evt) => {
                         setInputInfo(props => {
                             return {
                                 ...props,
-                                firstName: evt.target.value,
-                            }
-                        })
-                    }}
-                />
-
-                <p>Фамилия</p>
-                <Input
-                    type='text'
-                    id='lastName'
-                    name='lastName'
-                    autoComplete='off'
-                    value={inputInfo.lastName}
-                    onChange={(evt) => {
-                        setInputInfo(props => {
-                            return {
-                                ...props,
-                                lastName: evt.target.value,
-                            }
-                        })
-                    }}
-                />
-
-                <p>Отчество</p>
-                <Input
-                    type='text'
-                    id='patronymic'
-                    name='patronymic'
-                    autoComplete='off'
-                    value={inputInfo.patronymic}
-                    onChange={(evt) => {
-                        setInputInfo(props => {
-                            return {
-                                ...props,
-                                patronymic: evt.target.value,
+                                username: evt.target.value,
                             }
                         })
                     }}
@@ -94,7 +88,7 @@ export default function SignUpForm() {
 
                 <p>Пароль</p>
                 <Input
-                    type='text'
+                    type='password'
                     id='password'
                     name='password'
                     autoComplete='off'
@@ -111,7 +105,7 @@ export default function SignUpForm() {
 
                 <p>Потверждение пароля</p>
                 <Input
-                    type='text'
+                    type='password'
                     id='passwordRepeat'
                     name='passwordRepeat'
                     autoComplete='off'
@@ -137,14 +131,35 @@ export default function SignUpForm() {
                         })
                     }}>
                         <option aria-checked value='ROLE_USER'>Студент</option>
-                        <option value='ROLE_MENTOR'>Тьютор</option>
+                        <option value='ROLE_TUTOR_UNRECOGNIZED'>Тьютор</option>
                     </select>
                 </label>
+
+                {inputInfo.role === 'ROLE_USER' &&
+                    <>
+                        <p>Академическая группа</p>
+                        <Input
+                            type='text'
+                            id='group'
+                            name='group'
+                            autoComplete='off'
+                            value={inputInfo.group}
+                            onChange={(evt) => {
+                                setInputInfo(props => {
+                                    return {
+                                        ...props,
+                                        group: evt.target.value,
+                                    }
+                                })
+                            }}
+                        />
+                    </>
+                }
 
                 <SubmitButton>Регистрация</SubmitButton>
             </form>
 
-            <p>У меня уже есть аккаунт <Link to='/'>Войти</Link></p>
+            <p>У меня уже есть аккаунт <Link to='/signin'>Войти</Link></p>
         </section>
     )
 }
