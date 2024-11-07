@@ -5,12 +5,10 @@ import axios from 'axios';
 import SubmitButton from '../../Buttons/Submit/SubmitButton';
 import AuthService from '../../../services/AuthService';
 
-// const apiUrl = 'http://localhost:8080/api/v1/auth/signin';
 
 export default function SignInForm() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    // const [responseData, setResponseData] = useState(null);
     const navigate = useNavigate();
 
     const handleSubmit = async (evt) => {
@@ -29,15 +27,6 @@ export default function SignInForm() {
                 localStorage.setItem('token', response.data.token);
 
                 navigate('/main')
-
-                // const token = AuthService.getAccessToken();
-                // const responseNew = await axios.get('http://localhost:8080/api/v1/app/user',
-                //     {
-                //         headers: {
-                //             Authorization: `Bearer ${token}`
-                //         }
-                //     })
-
 
             }
         } catch (error) {
@@ -90,8 +79,7 @@ export default function SignInForm() {
             </form>
 
             <p>У меня нет аккаунта <Link to='/'>Зарегистрироваться</Link></p>
-            {/* 
-            {responseData && <pre>{JSON.stringify(responseData, null, 2)}</pre>} */}
+
         </section>
     )
 }
