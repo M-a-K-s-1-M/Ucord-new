@@ -3,7 +3,6 @@ import AuthService from '../services/AuthService';
 
 const ProtectedRoute = ({ children }) => {
     const accessToken = AuthService.getAccessToken();
-    // console.log('Полученный токен:', accessToken);
 
     const isAuthenticated = !!accessToken;
 

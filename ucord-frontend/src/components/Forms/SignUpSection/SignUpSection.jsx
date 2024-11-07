@@ -39,7 +39,7 @@ export default function SignUpForm() {
                 // localStorage.setItem('access_token', response.data.access_token);
                 navigate('/signin');
             } else {
-                throw new Error('Не удалось зарегать')
+                throw new Error('Не удалось зарегистрироваться')
             }
         } catch (error) {
             console.error('Ошибка при регистрации:', error);
@@ -64,7 +64,7 @@ export default function SignUpForm() {
                         setInputInfo(props => {
                             return {
                                 ...props,
-                                username: evt.target.value,
+                                username: evt.target.value
                             }
                         })
                     }}
@@ -81,7 +81,7 @@ export default function SignUpForm() {
                         setInputInfo(props => {
                             return {
                                 ...props,
-                                email: evt.target.value,
+                                email: evt.target.value
                             }
                         })
                     }}
@@ -98,7 +98,7 @@ export default function SignUpForm() {
                         setInputInfo(props => {
                             return {
                                 ...props,
-                                password: evt.target.value,
+                                password: evt.target.value
                             }
                         })
                     }}
@@ -115,7 +115,7 @@ export default function SignUpForm() {
                         setInputInfo(props => {
                             return {
                                 ...props,
-                                passwordRepeat: evt.target.value,
+                                passwordRepeat: evt.target.value
                             }
                         })
                     }}
@@ -127,7 +127,7 @@ export default function SignUpForm() {
                         setInputInfo(props => {
                             return {
                                 ...props,
-                                role: evt.target.value,
+                                role: evt.target.value
                             }
                         })
                     }}>
@@ -149,7 +149,7 @@ export default function SignUpForm() {
                                 setInputInfo(props => {
                                     return {
                                         ...props,
-                                        group: evt.target.value,
+                                        group: evt.target.value
                                     }
                                 })
                             }}

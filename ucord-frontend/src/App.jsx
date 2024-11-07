@@ -4,11 +4,12 @@ import { Route, Routes } from 'react-router-dom'
 import SignUpSection from './components/Forms/SignUpSection/SignUpSection.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import NotificationsSections from './components/NotificationsSection/NotificationsSection.jsx'
+import MainPage from './components/pages/MainPage.jsx'
 
 export default function App() {
   return (
     <>
-      <Routes>
+      {/* <Routes>
         <Route path="/" element={<SignUpSection />} />
         <Route path="/signin" element={<SignInSection />} />
 
@@ -16,7 +17,8 @@ export default function App() {
           path='/main'
           element={<ProtectedRoute><NotificationsSections /></ProtectedRoute>}
         />
-      </Routes >
+      </Routes > */}
+      <MainPage />
     </>
   )
 }

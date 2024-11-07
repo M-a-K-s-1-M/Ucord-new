@@ -1,5 +1,117 @@
-.notifications-container {
-    max-width: 1920px;
-    margin: 0 auto;
-    text-align: center;
+.notifications {
+    padding: 30px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+}
+
+/* Блок объявлений */
+
+.notifications .block-ad {
+    background-color: #EADCE8;
+    border-radius: 7px;
+    padding: 25px 20px;
+    min-height: 930px;
+}
+
+.notifications .block-ad .ad-item {
+    background-color: #fff;
+    border-radius: 7px;
+    padding: 15px 20px;
+    margin-bottom: 25px;
+}
+
+.notifications .block-ad .title-container {
+    display: flex;
+}
+
+.notifications .block-ad .title-container h3 {
+    font-size: 36px;
+}
+
+.notifications .block-ad .title-container button {
+    color: #fff;
+    background-color: #C123AB;
+    padding: 5px 50px;
+    font-size: 24px;
+    font-family: 'Jura', sans-serif;
+    border-radius: 10px;
+    margin-left: auto;
+    transition: all 500ms ease;
+    border: none;
+}
+
+.notifications .block-ad .title-container button:hover {
+    cursor: pointer;
+    background-color: rgba(156, 32, 139, 1);
+}
+
+.notifications .block-ad .description {
+    min-height: 120px;
+}
+
+/* Блок обращений */
+
+.notifications .block-requests {
+    background-color: #EADCE8;
+    border-radius: 7px;
+    padding: 25px 20px;
+    min-height: 930px;
+}
+
+.notifications .block-requests .requests-item {
+    background-color: #fff;
+    border-radius: 7px;
+    padding: 15px 20px;
+    margin-bottom: 25px;
+}
+
+.notifications .block-requests .title-container {
+    display: flex;
+}
+
+.notifications .block-requests .title-container h3 {
+    font-size: 36px;
+}
+
+.notifications .block-requests .title-container .btn-status {
+    color: #fff;
+    background-color: #C123AB;
+    padding: 5px 50px;
+    font-size: 24px;
+    font-family: 'Jura', sans-serif;
+    border-radius: 10px;
+    margin-left: auto;
+    transition: all 500ms ease;
+    border: none;
+}
+
+.notifications .block-requests .title-container .btn-status.decided {
+    background-color: #E87400;
+}
+
+.notifications .block-requests .description {
+    min-height: 120px;
+}
+
+.notifications .block-requests .btn-wrapper {
+    display: flex;
+}
+
+
+.notifications .block-requests .btn-chat {
+    color: #fff;
+    background-color: #C123AB;
+    padding: 5px 50px;
+    font-size: 24px;
+    font-family: 'Jura', sans-serif;
+    border-radius: 10px;
+    transition: all 500ms ease;
+    border: none;
+    margin-left: auto;
+}
+
+.notifications .block-requests .btn-chat:hover {
+    cursor: pointer;
+    background-color: rgba(156, 32, 139, 1);
 }
