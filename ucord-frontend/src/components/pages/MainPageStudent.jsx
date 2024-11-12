@@ -3,7 +3,7 @@ import Header from "../Header/Header";
 import NotificationsSection from "../NotificationsSection/NotificationsSection";
 import DeadlineSection from "../DeadlineSection/DeadlineSection";
 
-export default function MainPage() {
+export default function MainPageStudent() {
     const [active, setActive] = useState('notifications')
 
     return (

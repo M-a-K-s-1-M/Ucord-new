@@ -36,7 +36,6 @@ export default function SignUpForm() {
 
 
             if (response.status === 200) {
-                // localStorage.setItem('access_token', response.data.access_token);
                 navigate('/signin');
             } else {
                 throw new Error('Не удалось зарегистрироваться')
@@ -159,6 +158,7 @@ export default function SignUpForm() {
 
                 <SubmitButton>Регистрация</SubmitButton>
             </form>
+
 
             <p>У меня уже есть аккаунт <Link to='/signin'>Войти</Link></p>
         </section>
