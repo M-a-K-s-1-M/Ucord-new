@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom'
 import SignUpSection from './components/Forms/SignUpSection/SignUpSection.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import NotificationsSections from './components/NotificationsSection/NotificationsSection.jsx'
-import MainPage from './components/pages/MainPage.jsx'
+import MainPageStudent from './components/pages/MainPageStudent.jsx'
 
 export default function App() {
   return (
@@ -18,7 +18,7 @@ export default function App() {
           element={<ProtectedRoute><NotificationsSections /></ProtectedRoute>}
         />
       </Routes > */}
-      <MainPage />
+      <MainPageStudent />
     </>
   )
 }
