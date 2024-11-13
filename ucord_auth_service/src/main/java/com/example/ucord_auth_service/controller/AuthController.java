@@ -9,8 +9,8 @@ import com.example.ucord_auth_service.DTO.response.RefreshTokenResponse;
 import com.example.ucord_auth_service.DTO.response.SimpleResponse;
 import com.example.ucord_auth_service.exception.AlreadyExistsException;
 import com.example.ucord_auth_service.model.RoleType;
-import com.example.ucord_auth_service.repository.GroupRepository;
-import com.example.ucord_auth_service.repository.UserRepository;
+import com.example.ucord_auth_service.repository.GroupAuthRepository;
+import com.example.ucord_auth_service.repository.UserAuthRepository;
 import com.example.ucord_auth_service.security.SecurityService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,7 +19,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,34 +34,32 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthController {
 
-    private final UserRepository userRepository;
+    private final UserAuthRepository userRepository;
 
-    private final GroupRepository groupRepository;
+    private final GroupAuthRepository groupRepository;
     private final SecurityService securityService;
 
     @PostMapping("/signin")
-    public ResponseEntity<AuthResponse> authUser(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
+    public ResponseEntity<AuthResponse> authUser(@RequestBody LoginRequest loginRequest) {
         AuthResponseDTO authResponse = securityService.authenticateUser(loginRequest);
-
 
         ResponseCookie cookie = ResponseCookie.from("refreshToken", authResponse.getRefreshToken())
                 .httpOnly(true)
                 .secure(true) // Убедитесь, что это установлено в true в продакшене
                 .path("/")
                 .maxAge(60 * 60 * 24)
-                .sameSite("none")
+                .sameSite("None")
                 .build();
 
-        // Добавляем cookie в ответ
-        response.addHeader("Set-Cookie", cookie.toString());
-
-        return ResponseEntity.ok(new AuthResponse(
-                authResponse.getId(),
-                authResponse.getToken(),
-                authResponse.getUsername(),
-                authResponse.getEmail(),
-                authResponse.getRoles()
-        ));
+        return ResponseEntity.ok()
+                .header("Set-Cookie", cookie.toString())
+                .body(new AuthResponse(
+                        authResponse.getId(),
+                        authResponse.getToken(),
+                        authResponse.getUsername(),
+                        authResponse.getEmail(),
+                        authResponse.getRoles()
+                ));
     }
 
     @PostMapping("/register")

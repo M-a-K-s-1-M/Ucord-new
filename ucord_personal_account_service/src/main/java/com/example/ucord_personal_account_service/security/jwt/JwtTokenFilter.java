@@ -21,7 +21,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-@RequiredArgsConstructor
+/*@RequiredArgsConstructor
 @Slf4j
 @Component
 public class JwtTokenFilter extends OncePerRequestFilter {
@@ -53,4 +53,4 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
         filterChain.doFilter(request, response);
     }
-}
+}*/

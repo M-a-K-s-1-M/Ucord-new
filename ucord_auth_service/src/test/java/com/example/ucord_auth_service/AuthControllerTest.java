@@ -5,20 +5,18 @@ import com.example.ucord_auth_service.DTO.response.AuthResponse;
 import com.example.ucord_auth_service.DTO.response.RefreshTokenResponse;
 import com.example.ucord_auth_service.controller.AuthController;
 import com.example.ucord_auth_service.model.RoleType;
-import com.example.ucord_auth_service.repository.UserRepository;
+import com.example.ucord_auth_service.repository.UserAuthRepository;
 import com.example.ucord_auth_service.security.SecurityService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.Cookie;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -40,7 +38,7 @@ public class AuthControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private UserRepository userRepository;
+    private UserAuthRepository userRepository;
 
     @MockBean
     private SecurityService securityService;

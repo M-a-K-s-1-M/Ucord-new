@@ -5,13 +5,10 @@ import com.example.ucord_auth_service.DTO.AuthResponseDTO;
 import com.example.ucord_auth_service.DTO.RefreshTokenDTO;
 import com.example.ucord_auth_service.DTO.request.CreateUserRequest;
 import com.example.ucord_auth_service.DTO.request.LoginRequest;
-import com.example.ucord_auth_service.DTO.request.RefreshTokenRequest;
-import com.example.ucord_auth_service.DTO.response.AuthResponse;
-import com.example.ucord_auth_service.DTO.response.RefreshTokenResponse;
 import com.example.ucord_auth_service.exception.RefreshTokenException;
 import com.example.ucord_auth_service.model.entity.RefreshToken;
-import com.example.ucord_auth_service.model.entity.User;
-import com.example.ucord_auth_service.repository.UserRepository;
+import com.example.ucord_auth_service.model.entity.UserAuth;
+import com.example.ucord_auth_service.repository.UserAuthRepository;
 import com.example.ucord_auth_service.security.jwt.JwtUtils;
 import com.example.ucord_auth_service.service.RefreshTokenService;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +35,7 @@ public class SecurityService {
 
     private final RefreshTokenService refreshTokenService;
 
-    private final UserRepository userRepository;
+    private final UserAuthRepository userRepository;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -72,7 +69,7 @@ public class SecurityService {
                 .build();
     }
     public void register(CreateUserRequest createUserRequest) {
-        var user = User.builder()
+        var user = UserAuth.builder()
                 .username(createUserRequest.getUsername())
                 .email(createUserRequest.getEmail())
                 .password(passwordEncoder.encode(createUserRequest.getPassword()))
@@ -88,7 +85,7 @@ public class SecurityService {
                 .map(refreshTokenService::checkRefreshToken)
                 .map(RefreshToken::getUserId)
                 .map(userId -> {
-                    User tokenOwner = userRepository.findById(userId).orElseThrow(() ->
+                    UserAuth tokenOwner = userRepository.findById(userId).orElseThrow(() ->
                             new RefreshTokenException("Exception trying to get token for userId: " + userId));
                     String token = jwtUtils.generateTokenFromEmail(tokenOwner.getEmail());
 

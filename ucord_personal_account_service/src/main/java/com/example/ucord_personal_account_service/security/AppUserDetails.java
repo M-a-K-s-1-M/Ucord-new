@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
-@RequiredArgsConstructor
+/*@RequiredArgsConstructor
 public class AppUserDetails implements UserDetails {
 
     private final User user;
@@ -58,4 +58,4 @@ public class AppUserDetails implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-}
+}*/

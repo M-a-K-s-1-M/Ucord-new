@@ -2,7 +2,7 @@ spring:
   data:
     redis:
       host: localhost
-      port: 6379
+      port: 5444
   datasource:
     url: jdbc:postgresql://localhost:5432/ucord_db
     username: postgres

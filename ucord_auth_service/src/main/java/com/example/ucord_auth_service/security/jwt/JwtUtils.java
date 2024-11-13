@@ -1,7 +1,6 @@
 package com.example.ucord_auth_service.security.jwt;
 
-import com.example.ucord_auth_service.model.entity.User;
-import com.example.ucord_auth_service.security.AppUserDetails;
+
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
