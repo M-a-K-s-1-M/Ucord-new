@@ -1,5 +1,5 @@
 import { useState } from "react";
-import './ChatSection.css';
+import './ChatModalSection.css';
 
 export default function ChatSection({ onClickClose }) {
 

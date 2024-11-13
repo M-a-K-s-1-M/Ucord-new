@@ -1,6 +1,6 @@
 .chat-container {
     background-color: #EADCE8;
-    position: fixed;
+    position: absolute;
 
     top: 5%;
     left: 35%;
@@ -10,6 +10,9 @@
     border-radius: 10px;
     font-size: 16px;
     font-weight: 400;
+    z-index: 100;
+
+    border: 3px solid #000;
 }
 
 .chat {
