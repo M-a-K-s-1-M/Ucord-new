@@ -1,0 +1,68 @@
+/* .modal-wrapper {
+    position: absolute;
+    z-index: 100;
+    background-color: #00000080;
+    width: 100%;
+    height: 100%;
+} */
+
+
+/* Кнопка закрыть окно */
+
+.more-container .close-img {
+    background-color: #C123AB;
+    border-radius: 50px;
+    position: absolute;
+    left: 850px;
+    top: -20px;
+    transition: all 500ms ease;
+}
+
+.more-container .close-img:hover {
+    background-color: rgba(156, 32, 139, 1);
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+
+/* --- */
+
+
+.more-container {
+    background-color: #EADCE8;
+    position: absolute;
+
+    top: 5%;
+    left: 35%;
+    width: 830px;
+    min-height: 930px;
+    padding: 25px;
+    border-radius: 10px;
+    font-size: 24px;
+    font-weight: 400;
+    z-index: 100;
+
+
+    border: 5px solid #000;
+}
+
+.more-container .title-deadline {
+    background-color: #fff;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 37px;
+    margin-bottom: 15px;
+}
+
+.more-container .description-deadline {
+    background-color: #fff;
+    height: 780px;
+    font-size: 24px;
+    line-height: 28px;
+    padding: 15px;
+    border-radius: 10px;
+    text-overflow: clip;
+    overflow-y: auto;
+}
