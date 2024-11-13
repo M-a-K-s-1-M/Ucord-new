@@ -1,0 +1,142 @@
+.chat-container {
+    background-color: #EADCE8;
+    position: absolute;
+
+    top: 5%;
+    left: 35%;
+    width: 830px;
+    min-height: 930px;
+    padding: 25px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 400;
+    z-index: 100;
+
+    border: 3px solid #000;
+}
+
+.chat {
+    height: 790px;
+    max-height: 790px;
+    overflow-y: auto;
+    color: #000000;
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: 400;
+    background-color: #fff;
+    background-color: white;
+    padding: 5px 17px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.chat .message {
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+.chat .message:last-child {
+    margin-bottom: 0;
+}
+
+.chat .message.student,
+.chat .message.theme {
+    text-align: right;
+}
+
+.chat .message.tutor {
+    text-align: left;
+}
+
+.chat .chat .message h3 {
+    font-size: 24px;
+    line-height: 28px;
+}
+
+.chat .message h4 {
+    margin-bottom: 5px;
+}
+
+.chat .message .description {
+    max-width: 450px;
+    background-color: #D9D9D9;
+    min-height: 90px;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+.chat .message.student .description,
+.chat .message.theme .description {
+    margin-left: auto;
+}
+
+.chat-container .form-container {
+    padding-right: 20px;
+    margin-bottom: 30px;
+}
+
+.chat-container form input {
+    font-family: 'Jura', serif;
+    width: 690px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 26px;
+    padding: 10px 10px;
+    padding-right: 130px;
+    border: none;
+    border-radius: 7px;
+    outline: none;
+}
+
+.chat-container form button {
+    font-family: 'Jura', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    padding: 5px 10px;
+    border-radius: 7px;
+    border: none;
+    color: #FFF;
+    background-color: #C123AB;
+    transition: all 500ms ease;
+
+    position: absolute;
+    left: 740px;
+    bottom: 110px;
+}
+
+.chat-container form button:hover {
+    cursor: pointer;
+    background-color: rgba(156, 32, 139, 1);
+}
+
+.chat-container .status-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.chat-container .status-container p {
+    color: #6382FF;
+}
+
+.chat-container .status-container .status {
+    font-size: 24px;
+    padding: 10px 55px;
+    color: #fff;
+    background-color: #C123AB;
+    border-radius: 10px;
+}
+
+.chat-container .close-img {
+    background-color: #C123AB;
+    border-radius: 50px;
+    position: absolute;
+    left: 850px;
+    top: -20px;
+    transition: all 500ms ease;
+}
+
+.chat-container .close-img:hover {
+    background-color: rgba(156, 32, 139, 1);
+    cursor: pointer;
+    transform: scale(1.1);
+}

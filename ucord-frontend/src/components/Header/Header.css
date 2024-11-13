@@ -1,0 +1,37 @@
+.header {
+    background-color: #B97CAF;
+    color: #fff;
+    display: flex;
+    column-gap: 60px;
+    height: 90px;
+    padding: 0 30px;
+}
+
+.header .main-logo {
+    position: absolute;
+    content: '';
+    top: 5px;
+
+}
+
+.header nav ul {
+    display: flex;
+    column-gap: 30px;
+    text-align: center;
+    padding-top: 30px;
+    margin-left: 400px
+}
+
+.header nav ul li {
+    padding: 5px 35px;
+    border-radius: 10px;
+}
+
+.header nav ul li.active {
+    background-color: #fff;
+    color: #C123AB;
+}
+
+.header nav ul li a:hover {
+    cursor: pointer;
+}

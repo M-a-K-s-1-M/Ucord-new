@@ -3,9 +3,8 @@ import AuthService from '../services/AuthService';
 
 const ProtectedRoute = ({ children }) => {
     const accessToken = AuthService.getAccessToken();
-    const refreshToken = AuthService.getRefreshToken();
 
-    const isAuthenticated = !!accessToken && !!refreshToken;
+    const isAuthenticated = !!accessToken;
 
     return isAuthenticated ? children : <Navigate to="/signin" replace />;
 };

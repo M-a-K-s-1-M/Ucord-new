@@ -28,17 +28,17 @@ export default function SignUpForm() {
             const response = await axios.post('http://localhost:8080/api/v1/auth/register',
                 {
                     username: usernameCorrect,
-                    email,
-                    password,
-                    role,
-                    group,
+                    email: inputInfo.email,
+                    password: inputInfo.password,
+                    role: inputInfo.role,
+                    groupName: inputInfo.group,
                 });
 
-            if (response.data.access_token) {
-                localStorage.setItem('access_token', response.data.access_token);
+
+            if (response.status === 200) {
                 navigate('/signin');
             } else {
-                throw new Error('Не удалось получить access токен')
+                throw new Error('Не удалось зарегистрироваться')
             }
         } catch (error) {
             console.error('Ошибка при регистрации:', error);
@@ -63,7 +63,7 @@ export default function SignUpForm() {
                         setInputInfo(props => {
                             return {
                                 ...props,
-                                username: evt.target.value,
+                                username: evt.target.value
                             }
                         })
                     }}
@@ -80,7 +80,7 @@ export default function SignUpForm() {
                         setInputInfo(props => {
                             return {
                                 ...props,
-                                email: evt.target.value,
+                                email: evt.target.value
                             }
                         })
                     }}
@@ -97,7 +97,7 @@ export default function SignUpForm() {
                         setInputInfo(props => {
                             return {
                                 ...props,
-                                password: evt.target.value,
+                                password: evt.target.value
                             }
                         })
                     }}
@@ -114,7 +114,7 @@ export default function SignUpForm() {
                         setInputInfo(props => {
                             return {
                                 ...props,
-                                passwordRepeat: evt.target.value,
+                                passwordRepeat: evt.target.value
                             }
                         })
                     }}
@@ -126,7 +126,7 @@ export default function SignUpForm() {
                         setInputInfo(props => {
                             return {
                                 ...props,
-                                role: evt.target.value,
+                                role: evt.target.value
                             }
                         })
                     }}>
@@ -148,7 +148,7 @@ export default function SignUpForm() {
                                 setInputInfo(props => {
                                     return {
                                         ...props,
-                                        group: evt.target.value,
+                                        group: evt.target.value
                                     }
                                 })
                             }}
@@ -158,6 +158,7 @@ export default function SignUpForm() {
 
                 <SubmitButton>Регистрация</SubmitButton>
             </form>
+
 
             <p>У меня уже есть аккаунт <Link to='/signin'>Войти</Link></p>
         </section>
