@@ -9,16 +9,17 @@ import MainPageStudent from './components/pages/MainPageStudent.jsx'
 export default function App() {
   return (
     <>
-      {/* <Routes>
+      <Routes>
         <Route path="/" element={<SignUpSection />} />
         <Route path="/signin" element={<SignInSection />} />
 
         <Route
           path='/main'
-          element={<ProtectedRoute><NotificationsSections /></ProtectedRoute>}
+          element={<MainPageStudent />}
         />
-      </Routes > */}
-      <MainPageStudent />
+      </Routes >
+
+      {/* <MainPageStudent /> */}
     </>
   )
 }

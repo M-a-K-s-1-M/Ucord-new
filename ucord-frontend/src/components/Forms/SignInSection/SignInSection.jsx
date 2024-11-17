@@ -14,34 +14,73 @@ export default function SignInForm() {
     const handleSubmit = async (evt) => {
         evt.preventDefault();
 
-        try {
-            const response = await axios.post('http://localhost:8080/api/v1/auth/signin', {
-                email,
-                password
-            },
-                {
-                    withCredentials: true
-                });
-
-            if (response.status === 200) {
-                localStorage.setItem('token', response.data.token);
-
-                navigate('/main')
-
+        const config = {
+            method: 'post',
+            url: 'http://localhost:8080/api/v1/auth/signin',
+            withCredentials: true,
+            data: {
+                email: email,
+                password: password,
             }
-        } catch (error) {
-            console.error('Ошибка: ', error);
-
-            // Здесь можно дополнительно обработать ошибки и попробовать обновить токен
-            const refreshResponse = await axios.post('http://localhost:8080/api/v1/auth/refresh-token', {
-                withCredentials: true,
-            });
-
-            if (refreshResponse.data.token) {
-                localStorage.setItem('token', refreshResponse.data.accessToken);
-            }
-            console.log('токен обновлён')
         }
+
+        await axios(config)
+            .then(response => {
+                if (response.status === 200) {
+                    localStorage.setItem('token', response.data.token)
+                    localStorage.setItem('refreshToken', response.data.refreshToken)
+                    navigate('/main');
+                }
+            })
+            .catch(async (error) => {
+                console.error('Ошибка: ', error);
+
+                const config = {
+                    method: 'post',
+                    url: 'http://localhost:8080/api/v1/auth/refresh-token',
+                    withCredentials: true,
+                }
+
+                await axios(config)
+                    .then(refreshResponse => {
+                        if (refreshResponse.data.token) {
+                            localStorage.setItem('token', refreshResponse.data.accessToken);
+                            console.log('токен обновлён')
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+            })
+
+        // try {
+        //     const response = await axios.post('http://localhost:8080/api/v1/auth/signin', {
+        //         email,
+        //         password
+        //     },
+        //         {
+        //             withCredentials: true
+        //         });
+
+        //     if (response.status === 200) {
+        //         localStorage.setItem('token', response.data.token);
+
+        //         navigate('/main')
+
+        //     }
+        // } catch (error) {
+        //     console.error('Ошибка: ', error);
+
+        //     // Здесь можно дополнительно обработать ошибки и попробовать обновить токен
+        //     const refreshResponse = await axios.post('http://localhost:8080/api/v1/auth/refresh-token', {
+        //         withCredentials: true,
+        //     });
+
+        //     if (refreshResponse.data.token) {
+        //         localStorage.setItem('token', refreshResponse.data.accessToken);
+        //     }
+        //     console.log('токен обновлён')
+        // }
     }
 
     return (

@@ -3,10 +3,16 @@ import axios from 'axios';
 import ChatModalSection from '../ChatModalSection/ChatModalSection.jsx'
 import { useState } from 'react';
 import AskModalSection from '../AskModalSection/AskModalSection.jsx';
+import { useNavigate } from 'react-router-dom';
+
+
+
 
 export default function NotificationsSection() {
     const [isModalChatOpen, setIsModalChatlOpen] = useState(false);
     const [isModalAskOpen, setIsModalAskOpen] = useState(false);
+
+    const navigate = useNavigate();
 
     const openModalChat = () => {
         setIsModalChatlOpen(true);
@@ -28,8 +34,6 @@ export default function NotificationsSection() {
         document.body.classList.remove('modal-open');
     }
 
-
-
     return (
         <main className={`notifications ${isModalChatOpen ? 'modal-open' : ''}`}>
 
@@ -46,42 +50,14 @@ export default function NotificationsSection() {
                         </div>
                         <p className='description'>Описание</p>
                     </li>
-
-                    <li className='ad-item'>
-                        <div className='title-container'>
-                            <h3>Тема объявления</h3>
-                            <button type='button'>Подробнее</button>
-                        </div>
-                        <p className='description'>Описание</p>
-                    </li>
-                    <li className='ad-item'>
-                        <div className='title-container'>
-                            <h3>Тема объявления</h3>
-                            <button type='button'>Подробнее</button>
-                        </div>
-                        <p className='description'>Описание</p>
-                    </li>
-                    <li className='ad-item'>
-                        <div className='title-container'>
-                            <h3>Тема объявления</h3>
-                            <button type='button'>Подробнее</button>
-                        </div>
-                        <p className='description'>Описание</p>
-                    </li>
-                    <li className='ad-item'>
-                        <div className='title-container'>
-                            <h3>Тема объявления</h3>
-                            <button type='button'>Подробнее</button>
-                        </div>
-                        <p className='description'>Описание</p>
-                    </li>
                 </ul>
 
             </section>
 
             <section className='block-requests'>
-                <div className='requests-list'>
-                    <div className='requests-item'>
+                <ul className='requests-list'>
+
+                    <li className='requests-item'>
                         <div className='title-container'>
                             <h3>Тема обращения</h3>
                             <button className='btn-status'>Решается</button>
@@ -90,9 +66,9 @@ export default function NotificationsSection() {
                         <div className='btn-wrapper'>
                             <button className='btn-chat' type='button' onClick={openModalChat}>Чат</button>
                         </div>
-                    </div>
+                    </li>
 
-                    <div className='requests-item'>
+                    <li className='requests-item'>
                         <div className='title-container'>
                             <h3>Тема обращения</h3>
                             <button className='btn-status decided'>Решено</button>
@@ -101,41 +77,11 @@ export default function NotificationsSection() {
                         <div className='btn-wrapper'>
                             <button className='btn-chat' type='button' onClick={openModalChat}>Чат</button>
                         </div>
-                    </div>
-
-                    <div className='requests-item'>
-                        <div className='title-container'>
-                            <h3>Тема обращения</h3>
-                            <button className='btn-status decided'>Решено</button>
-                        </div>
-                        <p className='description'>Описание</p>
-                        <div className='btn-wrapper'>
-                            <button className='btn-chat' type='button' onClick={openModalChat}>Чат</button>
-                        </div>
-                    </div>
-                    <div className='requests-item'>
-                        <div className='title-container'>
-                            <h3>Тема обращения</h3>
-                            <button className='btn-status decided'>Решено</button>
-                        </div>
-                        <p className='description'>Описание</p>
-                        <div className='btn-wrapper'>
-                            <button className='btn-chat' type='button' onClick={openModalChat}>Чат</button>
-                        </div>
-                    </div>
-                    <div className='requests-item'>
-                        <div className='title-container'>
-                            <h3>Тема обращения</h3>
-                            <button className='btn-status decided'>Решено</button>
-                        </div>
-                        <p className='description'>Описание</p>
-                        <div className='btn-wrapper'>
-                            <button className='btn-chat' type='button' onClick={openModalChat}>Чат</button>
-                        </div>
-                    </div>
+                    </li>
 
 
-                </div>
+
+                </ul>
 
                 <div className='btn-wrapper'>
                     <button type='button' className='btn-question' onClick={openModalAsk}>Спросить</button>
