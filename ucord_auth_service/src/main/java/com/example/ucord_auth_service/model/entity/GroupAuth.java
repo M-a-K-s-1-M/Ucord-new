@@ -20,9 +20,9 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "groups")
+@Table(name = "groups_auth")
 @Builder
-public class Group {
+public class GroupAuth {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,5 +32,5 @@ public class Group {
     private String name;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "groupId", cascade = CascadeType.ALL)
-    private List<User> studentList;
+    private List<UserAuth> studentList;
 }

@@ -29,9 +29,9 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "users")
+@Table(name = "users_auth")
 @Builder
-public class User {
+public class UserAuth {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -52,7 +52,7 @@ public class User {
 
     @ManyToOne
     @JoinColumn(name = "group_id")
-    private Group groupId;
+    private GroupAuth groupId;
 
     @ElementCollection(targetClass = RoleType.class, fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))

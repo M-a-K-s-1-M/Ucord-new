@@ -46,6 +46,35 @@ services:
       - ucord-service-net
     restart: on-failure
 
+  ucord_personal_account_service:
+    #build:
+      #context: ..\ucord_personal_account_service
+      #dockerfile: ..\ucord_personal_account_service\Dockerfile
+    image: shykamuy/ucord_personal_account_service:latest
+    container_name: personal_account_app
+    depends_on:
+      - redis
+      - postgres
+      - ucord_auth_service
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/ucord_db
+    ports:
+      - "8081:8081"
+    networks:
+      - ucord-service-net
+    restart: on-failure
+
+#  frontend:
+#    image: <name>/ucord-frontend
+#    container_name: frontend
+#    ports:
+#      - "5173:5173"
+#    networks:
+#      ucord-service-net:
+
+
   nginx:
     image: nginx:latest
     container_name: nginx

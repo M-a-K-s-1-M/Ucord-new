@@ -15,7 +15,7 @@ services:
   redis:
     image: redis:7.0.12
     ports:
-      - "6379:6379"
+      - "5444:6379"
     networks:
       - ucord-service-net
 
@@ -40,10 +40,30 @@ services:
       - SPRING_DATA_REDIS_HOST=redis
       - SPRING_DATA_REDIS_PORT=6379
       - APP_JWT_SECRET=someSecretKey
-      - APP_JWT_TOKEN_EXPIRATION=30m
+      - APP_JWT_TOKEN_EXPIRATION=1d
       - APP_JWT_REFRESH_TOKEN_EXPIRATION=1d
     ports:
       - "8080:8080"
+    networks:
+      - ucord-service-net
+    restart: on-failure
+
+  ucord_personal_account_service:
+    build:
+      context: ..\ucord_personal_account_service
+      dockerfile: ..\ucord_personal_account_service\Dockerfile
+    #image: shykamuy/ucord_auth_service:latest
+    container_name: personal_account_app
+    depends_on:
+      - redis
+      - postgres
+      - ucord_auth_service
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/ucord_db
+    ports:
+      - "8081:8081"
     networks:
       - ucord-service-net
     restart: on-failure

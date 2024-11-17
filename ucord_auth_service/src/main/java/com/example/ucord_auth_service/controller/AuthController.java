@@ -9,22 +9,25 @@ import com.example.ucord_auth_service.DTO.response.RefreshTokenResponse;
 import com.example.ucord_auth_service.DTO.response.SimpleResponse;
 import com.example.ucord_auth_service.exception.AlreadyExistsException;
 import com.example.ucord_auth_service.model.RoleType;
-import com.example.ucord_auth_service.repository.GroupRepository;
-import com.example.ucord_auth_service.repository.UserRepository;
+import com.example.ucord_auth_service.repository.GroupAuthRepository;
+import com.example.ucord_auth_service.repository.UserAuthRepository;
 import com.example.ucord_auth_service.security.SecurityService;
+import com.example.ucord_auth_service.security.UserDetailsServiceImpl;
+import com.example.ucord_auth_service.security.jwt.JwtUtils;
 import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -35,34 +38,41 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthController {
 
-    private final UserRepository userRepository;
+    private final UserAuthRepository userRepository;
 
-    private final GroupRepository groupRepository;
+    private final GroupAuthRepository groupRepository;
     private final SecurityService securityService;
 
+    private final UserDetailsServiceImpl userDetailsService;
+
+    private final JwtUtils jwtUtils;
+
+
+
     @PostMapping("/signin")
-    public ResponseEntity<AuthResponse> authUser(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
+    public ResponseEntity<AuthResponse> authUser(@RequestBody LoginRequest loginRequest) {
         AuthResponseDTO authResponse = securityService.authenticateUser(loginRequest);
 
-
+/*
         ResponseCookie cookie = ResponseCookie.from("refreshToken", authResponse.getRefreshToken())
                 .httpOnly(true)
                 .secure(true) // Убедитесь, что это установлено в true в продакшене
                 .path("/")
                 .maxAge(60 * 60 * 24)
-                .sameSite("none")
+                .sameSite("None")
                 .build();
+*/
 
-        // Добавляем cookie в ответ
-        response.addHeader("Set-Cookie", cookie.toString());
-
-        return ResponseEntity.ok(new AuthResponse(
-                authResponse.getId(),
-                authResponse.getToken(),
-                authResponse.getUsername(),
-                authResponse.getEmail(),
-                authResponse.getRoles()
-        ));
+        return ResponseEntity.ok()
+                //.header("Set-Cookie", cookie.toString())
+                .body(new AuthResponse(
+                        authResponse.getId(),
+                        authResponse.getToken(),
+                        authResponse.getRefreshToken(),
+                        authResponse.getUsername(),
+                        authResponse.getEmail(),
+                        authResponse.getRoles()
+                ));
     }
 
     @PostMapping("/register")
@@ -83,8 +93,9 @@ public class AuthController {
     }
 
     @PostMapping("/refresh-token")
-    public ResponseEntity<RefreshTokenResponse> refreshToken(HttpServletRequest request) {
+    public ResponseEntity<RefreshTokenResponse> refreshToken(@RequestHeader(required = true) String refreshToken) {
         // Извлекаем refresh token из cookie
+/*
         Cookie[] cookies = request.getCookies();
         String refreshToken = null;
         if (cookies != null) {
@@ -99,9 +110,24 @@ public class AuthController {
         if (refreshToken == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
+*/
+
+
 
         RefreshTokenDTO refreshTokenResponse = securityService.refreshToken(refreshToken);
         return ResponseEntity.ok(new RefreshTokenResponse(refreshTokenResponse.getAccessToken()));
+    }
+
+    @GetMapping("/validate-token")
+    @ResponseStatus(HttpStatus.OK)
+    public UserDetails validateToken(@RequestHeader("Authorization") String headerAuth) {
+
+        if (!StringUtils.hasText(headerAuth) && !headerAuth.startsWith("Bearer")) {
+            throw new RuntimeException("Invalid token");
+        }
+        String token = headerAuth.substring(7);
+        UserDetails userDetails = userDetailsService.loadUserByUsername(jwtUtils.getEmail(token));
+        return userDetails;
     }
 
     @PostMapping("/logout")
