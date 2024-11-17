@@ -24,27 +24,50 @@ export default function SignUpForm() {
 
         const usernameCorrect = validateAndJoinFIO(inputInfo.username);
 
-        try {
-            const response = await axios.post('http://localhost:8080/api/v1/auth/register',
-                {
-                    username: usernameCorrect,
-                    email: inputInfo.email,
-                    password: inputInfo.password,
-                    role: inputInfo.role,
-                    groupName: inputInfo.group,
-                });
-
-
-            if (response.status === 200) {
-                navigate('/signin');
-            } else {
-                throw new Error('Не удалось зарегистрироваться')
+        const config = {
+            method: 'post',
+            url: 'http://localhost:8080/api/v1/auth/register',
+            data: {
+                username: usernameCorrect,
+                email: inputInfo.email,
+                password: inputInfo.password,
+                role: inputInfo.role,
+                groupName: inputInfo.group,
             }
-        } catch (error) {
-            console.error('Ошибка при регистрации:', error);
-            setErrorMessage('Произошла ошибка при регистрации. Попробуйте еще раз.');
-
         }
+
+        await axios(config)
+            .then(response => {
+                if (response.status === 200) {
+                    navigate('/signin')
+                }
+            })
+            .catch(error => {
+                console.error('Ошибка при регистрации:', error);
+                setErrorMessage('Произошла ошибка при регистрации. Попробуйте еще раз.');
+            })
+
+        // try {
+        //     const response = await axios.post('http://localhost:8080/api/v1/auth/register',
+        //         {
+        //             username: usernameCorrect,
+        //             email: inputInfo.email,
+        //             password: inputInfo.password,
+        //             role: inputInfo.role,
+        //             groupName: inputInfo.group,
+        //         });
+
+
+        //     if (response.status === 200) {
+        //         navigate('/signin');
+        //     } else {
+        //         throw new Error('Не удалось зарегистрироваться')
+        //     }
+        // } catch (error) {
+        //     console.error('Ошибка при регистрации:', error);
+        //     setErrorMessage('Произошла ошибка при регистрации. Попробуйте еще раз.');
+
+        // }
     }
 
     return (
@@ -158,6 +181,8 @@ export default function SignUpForm() {
 
                 <SubmitButton>Регистрация</SubmitButton>
             </form>
+
+            {errorMessage && <p>{errorMessage}</p>}
 
 
             <p>У меня уже есть аккаунт <Link to='/signin'>Войти</Link></p>
