@@ -28,7 +28,6 @@ export default function SignInForm() {
             .then(response => {
                 if (response.status === 200) {
                     localStorage.setItem('token', response.data.token)
-                    localStorage.setItem('refreshToken', response.data.refreshToken)
                     navigate('/main');
                 }
             })

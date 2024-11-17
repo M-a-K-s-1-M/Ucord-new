@@ -22,7 +22,7 @@ services:
     #Сбилдить образ: docker build -t shykamuy/ucord_auth_service .
     #Пушнуть: docker push shykamuy/ucord_auth_service
 
-  ucord_auth_service:
+  ucord-auth-service:
     # build:
     #   context: ..\ucord_auth_service
     #   dockerfile: ..\ucord_auth_service\Dockerfile
@@ -46,16 +46,16 @@ services:
       - ucord-service-net
     restart: on-failure
 
-  ucord_personal_account_service:
+  ucord-personal-account-service:
     #build:
-      #context: ..\ucord_personal_account_service
-      #dockerfile: ..\ucord_personal_account_service\Dockerfile
+    #context: ..\ucord_personal_account_service
+    #dockerfile: ..\ucord_personal_account_service\Dockerfile
     image: shykamuy/ucord_personal_account_service:latest
     container_name: personal_account_app
     depends_on:
       - redis
       - postgres
-      - ucord_auth_service
+      - ucord-auth-service
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -66,14 +66,13 @@ services:
       - ucord-service-net
     restart: on-failure
 
-#  frontend:
-#    image: <name>/ucord-frontend
-#    container_name: frontend
-#    ports:
-#      - "5173:5173"
-#    networks:
-#      ucord-service-net:
-
+  # frontend:
+  #   image: ucord-frontend
+  #   container_name: frontend
+  #   ports:
+  #     - "5173:5173"
+  #   networks:
+  #     ucord-service-net:
 
   nginx:
     image: nginx:latest
@@ -83,7 +82,7 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
-      - ucord_auth_service
+      - ucord-auth-service
     networks:
       - ucord-service-net
 
