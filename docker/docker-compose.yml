@@ -40,7 +40,7 @@ services:
       - SPRING_DATA_REDIS_HOST=redis
       - SPRING_DATA_REDIS_PORT=6379
       - APP_JWT_SECRET=someSecretKey
-      - APP_JWT_TOKEN_EXPIRATION=30m
+      - APP_JWT_TOKEN_EXPIRATION=1d
       - APP_JWT_REFRESH_TOKEN_EXPIRATION=1d
     ports:
       - "8080:8080"

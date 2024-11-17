@@ -31,6 +31,10 @@ public class Message {
     private String message;
 
     @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User userId;
+
+    @ManyToOne
     @JoinColumn(name = "appeal_id", nullable = false) // Связь с апелляцией
     private Appeal appealId;
 }

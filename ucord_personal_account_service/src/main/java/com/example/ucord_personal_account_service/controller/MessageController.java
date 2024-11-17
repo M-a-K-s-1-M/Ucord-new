@@ -1,5 +1,8 @@
 package com.example.ucord_personal_account_service.controller;
 
+import com.example.ucord_personal_account_service.DTO.request.MessageRequest;
+import com.example.ucord_personal_account_service.DTO.response.MessageResponse;
+import com.example.ucord_personal_account_service.mapper.message.MessageMapper;
 import com.example.ucord_personal_account_service.model.entity.Message;
 import com.example.ucord_personal_account_service.service.MessageService;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -22,38 +26,47 @@ import org.springframework.web.bind.annotation.RestController;
 public class MessageController {
 
     private final MessageService messageService;
+    private final MessageMapper messageMapper;
 
     @GetMapping
-    public ResponseEntity<Page<Message>> getAllMessages(
+    @ResponseStatus(HttpStatus.OK)
+    public Page<MessageResponse> getAllMessages(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-        return ResponseEntity.ok(messageService.getAllMessages(PageRequest.of(page, size)));
+        return messageService.getAllMessages(PageRequest.of(page, size))
+                .map(messageMapper::messageToResponse);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Message> getMessageById(@PathVariable Long id) {
-        return ResponseEntity.ok(messageService.getMessageById(id));
+    @ResponseStatus(HttpStatus.OK)
+    public MessageResponse getMessageById(@PathVariable Long id) {
+        return messageMapper.messageToResponse(messageService.getMessageById(id));
     }
 
     @PostMapping
-    public ResponseEntity<Message> createMessage(@RequestBody Message message) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(messageService.saveMessage(message));
+    @ResponseStatus(HttpStatus.CREATED)
+    public MessageResponse createMessage(@RequestBody MessageRequest messageRequest) {
+        Message message = messageMapper.requestToMessage(messageRequest);
+        return messageMapper.messageToResponse(messageService.saveMessage(message));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteMessage(@PathVariable Long id) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteMessage(@PathVariable Long id) {
         messageService.deleteMessage(id);
-        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/search")
-    public ResponseEntity<Page<Message>> searchMessages(
+    @ResponseStatus(HttpStatus.OK)
+    public Page<MessageResponse> searchMessages(
             @RequestParam(required = false) String message,
             @RequestParam(required = false) Long appealId,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-        return ResponseEntity.ok(messageService.searchMessages(message, appealId, PageRequest.of(page, size)));
+        return messageService.searchMessages(message, appealId, PageRequest.of(page, size))
+                .map(messageMapper::messageToResponse);
     }
 }
+

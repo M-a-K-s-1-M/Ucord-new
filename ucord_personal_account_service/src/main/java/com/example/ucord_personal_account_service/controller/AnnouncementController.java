@@ -1,5 +1,8 @@
 package com.example.ucord_personal_account_service.controller;
 
+import com.example.ucord_personal_account_service.DTO.request.AnnouncementRequest;
+import com.example.ucord_personal_account_service.DTO.response.AnnouncementResponse;
+import com.example.ucord_personal_account_service.mapper.announcement.AnnouncementMapper;
 import com.example.ucord_personal_account_service.model.entity.Announcement;
 import com.example.ucord_personal_account_service.service.AnnouncementService;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -22,33 +26,40 @@ import org.springframework.web.bind.annotation.RestController;
 public class AnnouncementController {
 
     private final AnnouncementService announcementService;
+    private final AnnouncementMapper announcementMapper;
 
     @GetMapping
-    public ResponseEntity<Page<Announcement>> getAllAnnouncements(
+    @ResponseStatus(HttpStatus.OK)
+    public Page<AnnouncementResponse> getAllAnnouncements(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-        return ResponseEntity.ok(announcementService.getAllAnnouncements(PageRequest.of(page, size)));
+        return announcementService.getAllAnnouncements(PageRequest.of(page, size))
+                .map(announcementMapper::announcementToResponse);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Announcement> getAnnouncementById(@PathVariable Long id) {
-        return ResponseEntity.ok(announcementService.getAnnouncementById(id));
+    @ResponseStatus(HttpStatus.OK)
+    public AnnouncementResponse getAnnouncementById(@PathVariable Long id) {
+        return announcementMapper.announcementToResponse(announcementService.getAnnouncementById(id));
     }
 
     @PostMapping
-    public ResponseEntity<Announcement> createAnnouncement(@RequestBody Announcement announcement) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(announcementService.saveAnnouncement(announcement));
+    @ResponseStatus(HttpStatus.CREATED)
+    public AnnouncementResponse createAnnouncement(@RequestBody AnnouncementRequest announcementRequest) {
+        Announcement announcement = announcementMapper.requestToAnnouncement(announcementRequest);
+        return announcementMapper.announcementToResponse(announcementService.saveAnnouncement(announcement));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteAnnouncement(@PathVariable Long id) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteAnnouncement(@PathVariable Long id) {
         announcementService.deleteAnnouncement(id);
-        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/search")
-    public ResponseEntity<Page<Announcement>> searchAnnouncements(
+    @ResponseStatus(HttpStatus.OK)
+    public Page<AnnouncementResponse> searchAnnouncements(
             @RequestParam(required = false) String article,
             @RequestParam(required = false) String description,
             @RequestParam(required = false) Long groupId,
@@ -56,6 +67,8 @@ public class AnnouncementController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-        return ResponseEntity.ok(announcementService.searchAnnouncements(article, description, groupId, userId, PageRequest.of(page, size)));
+        return announcementService.searchAnnouncements(article, description, groupId, userId, PageRequest.of(page, size))
+                .map(announcementMapper::announcementToResponse);
     }
 }
+

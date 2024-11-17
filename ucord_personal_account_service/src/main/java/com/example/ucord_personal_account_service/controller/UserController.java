@@ -1,5 +1,8 @@
 package com.example.ucord_personal_account_service.controller;
 
+import com.example.ucord_personal_account_service.DTO.request.UserRequest;
+import com.example.ucord_personal_account_service.DTO.response.UserResponse;
+import com.example.ucord_personal_account_service.mapper.user.UserMapper;
 import com.example.ucord_personal_account_service.model.entity.User;
 import com.example.ucord_personal_account_service.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -23,38 +27,46 @@ public class UserController {
 
     private final UserService userService;
 
+    private final UserMapper userMapper;
+
     @GetMapping
-    public ResponseEntity<Page<User>> getAllUsers(
+    @ResponseStatus(HttpStatus.OK)
+    public Page<UserResponse> getAllUsers(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-        return ResponseEntity.ok(userService.getAllUsers(PageRequest.of(page, size)));
+        return userService.getAllUsers(PageRequest.of(page, size))
+                .map(userMapper::userToResponse);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        return ResponseEntity.ok(userService.getUserById(id));
+    @ResponseStatus(HttpStatus.OK)
+    public UserResponse getUserById(@PathVariable Long id) {
+        return userMapper.userToResponse(userService.getUserById(id));
     }
 
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.saveUser(user));
+    @ResponseStatus(HttpStatus.CREATED)
+    public UserResponse createUser(@RequestBody UserRequest user) {
+        return userMapper.userToResponse(userService.saveUser(userMapper.requestToUser(user)));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
-        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/search")
-    public ResponseEntity<Page<User>> searchUsers(
+    @ResponseStatus(HttpStatus.OK)
+    public Page<UserResponse> searchUsers(
             @RequestParam(required = false) String username,
             @RequestParam(required = false) String email,
             @RequestParam(required = false) Long groupId,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-        return ResponseEntity.ok(userService.searchUsers(username, email, groupId, PageRequest.of(page, size)));
+        return userService.searchUsers(username, email, groupId, PageRequest.of(page, size))
+                .map(userMapper::userToResponse);
     }
 }

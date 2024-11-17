@@ -33,8 +33,15 @@ public class DataInitializer implements CommandLineRunner {
                 .roles(Collections.singleton(RoleType.ROLE_ADMIN))
                 .password("admin123")
                 .build();
+        UserAuth user1 = UserAuth.builder()
+                .username("test")
+                .email("test@test.com")
+                .roles(Collections.singleton(RoleType.ROLE_USER))
+                .password("testtest")
+                .build();
 
         userRepository.save(user);
+        userRepository.save(user1);
         groupRepository.saveAll(Arrays.asList(group1, group2, group3));
 
     }

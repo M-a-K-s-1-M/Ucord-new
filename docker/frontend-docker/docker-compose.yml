@@ -46,6 +46,15 @@ services:
       - ucord-service-net
     restart: on-failure
 
+#  frontend:
+#    image: <name>/ucord-frontend
+#    container_name: frontend
+#    ports:
+#      - "5173:5173"
+#    networks:
+#      ucord-service-net:
+
+
   nginx:
     image: nginx:latest
     container_name: nginx

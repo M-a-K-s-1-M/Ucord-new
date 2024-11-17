@@ -23,6 +23,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -43,6 +44,7 @@ public class AuthController {
     public ResponseEntity<AuthResponse> authUser(@RequestBody LoginRequest loginRequest) {
         AuthResponseDTO authResponse = securityService.authenticateUser(loginRequest);
 
+/*
         ResponseCookie cookie = ResponseCookie.from("refreshToken", authResponse.getRefreshToken())
                 .httpOnly(true)
                 .secure(true) // Убедитесь, что это установлено в true в продакшене
@@ -50,12 +52,14 @@ public class AuthController {
                 .maxAge(60 * 60 * 24)
                 .sameSite("None")
                 .build();
+*/
 
         return ResponseEntity.ok()
-                .header("Set-Cookie", cookie.toString())
+                //.header("Set-Cookie", cookie.toString())
                 .body(new AuthResponse(
                         authResponse.getId(),
                         authResponse.getToken(),
+                        authResponse.getRefreshToken(),
                         authResponse.getUsername(),
                         authResponse.getEmail(),
                         authResponse.getRoles()
@@ -80,8 +84,9 @@ public class AuthController {
     }
 
     @PostMapping("/refresh-token")
-    public ResponseEntity<RefreshTokenResponse> refreshToken(HttpServletRequest request) {
+    public ResponseEntity<RefreshTokenResponse> refreshToken(@RequestHeader(required = true) String refreshToken) {
         // Извлекаем refresh token из cookie
+/*
         Cookie[] cookies = request.getCookies();
         String refreshToken = null;
         if (cookies != null) {
@@ -96,6 +101,9 @@ public class AuthController {
         if (refreshToken == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
+*/
+
+
 
         RefreshTokenDTO refreshTokenResponse = securityService.refreshToken(refreshToken);
         return ResponseEntity.ok(new RefreshTokenResponse(refreshTokenResponse.getAccessToken()));
