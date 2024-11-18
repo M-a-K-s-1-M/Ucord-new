@@ -48,8 +48,8 @@ services:
 
   ucord-personal-account-service:
     #build:
-      #context: ..\ucord_personal_account_service
-      #dockerfile: ..\ucord_personal_account_service\Dockerfile
+    #context: ..\ucord_personal_account_service
+    #dockerfile: ..\ucord_personal_account_service\Dockerfile
     image: shykamuy/ucord_personal_account_service:latest
     container_name: personal_account_app
     depends_on:
@@ -66,14 +66,13 @@ services:
       - ucord-service-net
     restart: on-failure
 
-#  frontend:
-#    image: <name>/ucord-frontend
-#    container_name: frontend
-#    ports:
-#      - "5173:5173"
-#    networks:
-#      ucord-service-net:
-
+  # frontend:
+  #   image: ucord-frontend
+  #   container_name: frontend
+  #   ports:
+  #     - "5173:5173"
+  #   networks:
+  #     ucord-service-net:
 
   nginx:
     image: nginx:latest
