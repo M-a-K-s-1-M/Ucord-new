@@ -22,6 +22,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,6 +37,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:5173")
 public class AuthController {
 
     private final UserAuthRepository userRepository;
@@ -118,16 +120,16 @@ public class AuthController {
         return ResponseEntity.ok(new RefreshTokenResponse(refreshTokenResponse.getAccessToken()));
     }
 
-    @GetMapping("/validate-token")
+    @GetMapping("/validate")
     @ResponseStatus(HttpStatus.OK)
-    public UserDetails validateToken(@RequestHeader("Authorization") String headerAuth) {
+    public Long validateToken(@RequestHeader("Authorization") String headerAuth) {
 
         if (!StringUtils.hasText(headerAuth) && !headerAuth.startsWith("Bearer")) {
             throw new RuntimeException("Invalid token");
         }
         String token = headerAuth.substring(7);
-        UserDetails userDetails = userDetailsService.loadUserByUsername(jwtUtils.getEmail(token));
-        return userDetails;
+        Long userId = userRepository.findByEmail(jwtUtils.getEmail(token)).orElseThrow().getId();
+        return userId;
     }
 
     @PostMapping("/logout")

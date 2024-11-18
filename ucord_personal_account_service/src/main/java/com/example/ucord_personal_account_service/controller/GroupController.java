@@ -9,10 +9,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/personal-account/group")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:5173")
 public class GroupController {
 
     private final GroupService groupService;
@@ -47,6 +50,15 @@ public class GroupController {
     @ResponseStatus(HttpStatus.CREATED)
     public GroupResponse createGroup(@RequestBody GroupRequest groupRequest) {
         Group group = groupMapper.requestToGroup(groupRequest);
+        return groupMapper.groupToResponse(groupService.saveGroup(group));
+    }
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public GroupResponse updateGroup(
+            @PathVariable Long id,
+            @RequestBody GroupRequest groupRequest) {
+        Group group = groupMapper.requestToGroup(groupRequest);
+        group.setId(id); // Ensure the ID is set to the correct value for update
         return groupMapper.groupToResponse(groupService.saveGroup(group));
     }
 
