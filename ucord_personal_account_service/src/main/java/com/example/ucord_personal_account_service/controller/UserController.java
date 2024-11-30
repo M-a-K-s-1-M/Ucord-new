@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/v1/personal-account/user")
 @RequiredArgsConstructor
@@ -44,7 +46,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public UserResponse getUserById(@PathVariable Long id) {
+    public UserResponse getUserById(@PathVariable UUID id) {
         return userMapper.userToResponse(userService.getUserById(id));
     }
 
@@ -56,16 +58,16 @@ public class UserController {
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public UserResponse updateUser(
-            @PathVariable Long id,
+            @PathVariable UUID id,
             @RequestBody UserRequest userRequest) {
         User user = userMapper.requestToUser(userRequest);
-        user.setId(id); // Ensure the ID is set to the correct value for update
+        user.setId(id);
         return userMapper.userToResponse(userService.saveUser(user));
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteUser(@PathVariable Long id) {
+    public void deleteUser(@PathVariable UUID id) {
         userService.deleteUser(id);
     }
 

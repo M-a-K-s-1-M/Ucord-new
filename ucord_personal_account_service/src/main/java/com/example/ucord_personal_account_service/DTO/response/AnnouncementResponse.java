@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.UUID;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,6 +22,6 @@ public class AnnouncementResponse {
 
     private List<Long> groupIdList;
 
-    private List<Long> userIdList;
+    private List<UUID> userIdList;
 
 }

@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.sql.results.jdbc.internal.JdbcValuesResultSetImpl;
 
+import java.util.UUID;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,7 +19,7 @@ public class AppealRequest {
 
     private String description;
 
-    private Long userId;
+    private UUID userId;
 
-    private Long tutorId;
+    private UUID tutorId;
 }

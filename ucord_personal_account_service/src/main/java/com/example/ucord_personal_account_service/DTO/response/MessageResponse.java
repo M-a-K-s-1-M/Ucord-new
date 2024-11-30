@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -19,7 +20,7 @@ public class MessageResponse {
 
     private String message;
 
-    private Long userId;
+    private UUID userId;
 
     private Long appealId;
 

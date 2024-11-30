@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/v1/personal-account/appeal")
 @RequiredArgsConstructor
@@ -74,7 +76,7 @@ public class AppealController {
     public Page<AppealResponse> searchAppeals(
             @RequestParam(required = false) String article,
             @RequestParam(required = false) String description,
-            @RequestParam(required = false) Long userId,
+            @RequestParam(required = false) UUID userId,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {

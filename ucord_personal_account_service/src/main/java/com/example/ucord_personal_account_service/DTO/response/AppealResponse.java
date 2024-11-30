@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -21,8 +22,8 @@ public class AppealResponse {
 
     private List<Long> messageIdList;
 
-    private Long userId;
+    private UUID userId;
 
-    private Long tutorId;
+    private UUID tutorId;
 
 }

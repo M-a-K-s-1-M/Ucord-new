@@ -1,7 +1,12 @@
-server:
-  port: 8081
-
 spring:
+
+  application:
+    name: ucord-account
+    kafka:
+      kafkaMessageGroupId: ${APP_KAFKA_EVENT_GROUP_ID:user-registration-event-group-id}
+      kafkaUserRegistryEventTopic: ${APP_KAFKA_USER_REGISTRATION_EVENT_TOPIC:user-registration-event-topic}
+      kafkaAccountRegistryEventTopic: ${APP_KAFKA_ACCOUNT_REGISTRATION_EVENT_TOPIC:account-registration-event-topic}
+
   datasource:
     url: jdbc:postgresql://localhost:5432/ucord_db
     username: postgres
@@ -11,3 +16,17 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  cloud:
+    discovery:
+      enabled: ${SPRING_CLOUD_CONFIG_ENABLED:true}
+  kafka:
+    bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:localhost:9892}
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://discovery:8761/eureka/
+    fetch-registry: true
+server:
+  port: 8081

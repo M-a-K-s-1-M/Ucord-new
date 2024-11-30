@@ -24,10 +24,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/v1/personal-account/announcement")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:5173")
 public class AnnouncementController {
 
     private final AnnouncementService announcementService;
@@ -81,11 +82,11 @@ public class AnnouncementController {
             @RequestParam(required = false) String article,
             @RequestParam(required = false) String description,
             @RequestParam(required = false) Long groupId,
-            @RequestParam(required = false) Long userId,
+            @RequestParam(required = false) UUID userId,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-        groupId = userService.getUserById((Long) request.getAttribute("userId")).getGroupId().getId();
+        groupId = userService.getUserById((UUID) request.getAttribute("userId")).getGroupId().getId();
         return announcementService.searchAnnouncements(article, description, groupId, userId, PageRequest.of(page, size))
                 .map(announcementMapper::announcementToResponse);
     }

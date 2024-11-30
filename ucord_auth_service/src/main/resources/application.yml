@@ -1,20 +1,49 @@
 spring:
+
+  application:
+    name: ucord-auth
+
   data:
     redis:
       host: localhost
       port: 5444
+
   datasource:
     url: jdbc:postgresql://localhost:5432/ucord_db
     username: postgres
     password: postgres
+
   jpa:
     generate-ddl: true
     hibernate:
       ddl-auto: update
     show-sql: true
 
+  cloud:
+    discovery:
+      enabled: ${SPRING_CLOUD_CONFIG_ENABLED:true}
+
+  kafka:
+    bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://discovery:8761/eureka/
+    fetch-registry: true
+
+server:
+  port: 8089
+
+
+
 app:
   jwt:
     secret: "${APP_JWT_SECRET:someSecretKey}"
-    tokenExpiration: "${APP_JWT_TOKEN_EXPIRATION:1m}"
-    refreshTokenExpiration: "${APP_JWT_REFRESH_TOKEN_EXPIRATION:30m}"
+    tokenExpiration: "${APP_JWT_TOKEN_EXPIRATION:30m}"
+    refreshTokenExpiration: "${APP_JWT_REFRESH_TOKEN_EXPIRATION:1d}"
+  kafka:
+    kafkaEventTopic: ${APP_KAFKA_KAFKAEVENTTOPIC:user-registration-event-topic}
+    kafkaAccountRegistrationEventTopic: ${APP_KAFKA_KAFKA_ACCOUNT_REGISTRATION_EVENT_TOPIC:account-registration-event-topic}
+    kafkaEventGroupId: ${APP_KAFKA_KAFKAEVENTGROUPID:user-registration-event-group-id}

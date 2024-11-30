@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -35,7 +36,7 @@ public class AnnouncementService {
         announcementRepository.deleteById(id);
     }
 
-    public Page<Announcement> searchAnnouncements(String article, String description, Long groupId, Long userId, Pageable pageable) {
+    public Page<Announcement> searchAnnouncements(String article, String description, Long groupId, UUID userId, Pageable pageable) {
         return announcementRepository.findAll((root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
 

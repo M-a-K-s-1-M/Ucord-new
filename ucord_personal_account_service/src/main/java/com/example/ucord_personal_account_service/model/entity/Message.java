@@ -35,6 +35,6 @@ public class Message {
     private User userId;
 
     @ManyToOne
-    @JoinColumn(name = "appeal_id", nullable = false) // Связь с апелляцией
+    @JoinColumn(name = "appeal_id", nullable = false)
     private Appeal appealId;
 }

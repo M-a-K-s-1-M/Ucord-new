@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -34,7 +35,7 @@ public class AppealService {
         appealRepository.deleteById(id);
     }
 
-    public Page<Appeal> searchAppeals(String article, String description, Long userId, Pageable pageable) {
+    public Page<Appeal> searchAppeals(String article, String description, UUID userId, Pageable pageable) {
         return appealRepository.findAll((root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
             if (article != null && !article.isEmpty()) {
