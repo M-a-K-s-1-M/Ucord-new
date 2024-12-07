@@ -1,0 +1,21 @@
+.notifications-t {
+    padding: 25px 30px;
+    display: grid;
+    grid-template-columns: 60% 40%;
+    gap: 20px;
+}
+
+.notifications-t .ads-block {
+    background-color: #EADCE8;
+    padding: 25px 35px;
+    border-radius: 10px;
+}
+
+.notifications-t .form-filter-container {
+    background-color: #9A1D89;
+    color: #fff;
+    border-radius: 10px;
+    padding: 35px 40px;
+}
+
+.notifications-t .form-filter-container .input-wrapper {}

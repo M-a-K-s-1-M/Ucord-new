@@ -1,6 +1,6 @@
 import { useState } from "react"
-import './DeadlineSection.css'
-import MoreModalSection from "../MoreModalSection/MoreModalSection";
+import './DeadlineSection.scss'
+import MoreModalSection from "../Modal/MoreModalSection/MoreModalSection";
 
 export default function DeadlineSection() {
     const [subjectText, setSubjectText] = useState('');
@@ -48,11 +48,19 @@ export default function DeadlineSection() {
 
                 <ul className="deadline-list">
                     <li className="deadline-item">
-                        <p>Лабораторная по Физике 12 апреля 13:30</p>
+                        <p className="description">Лабораторная по Физике</p>
+                        <p className="data">12 апреля 2025</p>
                         <button type='button' onClick={openModalMore}>Подробнее</button>
                     </li>
 
+
+
                 </ul>
+
+                <div className="btn-wrapper">
+                    <button className="btn-add"><img src='../../../public/plus.png' width='60' /></button>
+                </div>
+
             </section>
         </main>
     )

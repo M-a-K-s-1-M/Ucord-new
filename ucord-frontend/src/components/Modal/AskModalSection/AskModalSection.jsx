@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './AskModalSection.css';
+import './AskModalSection.scss';
 
 export default function AskSection({ onClickClose }) {
     const [themeText, setThemeText] = useState('');
@@ -12,7 +12,7 @@ export default function AskSection({ onClickClose }) {
 
     return (
         <section className='ask-container'>
-            <img className="close-img" src="../../../public/closeImage.svg" width='50' onClick={onClickClose} />
+            <img className="close-img" src="../../../public/closeImage.png" width='50' onClick={onClickClose} />
             <form className='ask-form' onSubmit={handleSubmit}>
                 <label >
                     <input className='theme-question'
