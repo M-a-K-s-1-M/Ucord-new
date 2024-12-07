@@ -1,7 +1,8 @@
 import { useState } from "react";
-import Header from "../../Header/Header";
-import NotificationsSection from "../../NotificationsSection/NotificationsSection";
+import NotificationsSectionStudent from "../../NotificationsSection/NotificationsSectionStudent/NotificationsSectionStudent";
 import DeadlineSection from "../../DeadlineSection/DeadlineSection";
+import ProfileSectionStudent from "../../Profile/ProfileSectionStudent";
+import './MainPageStudent.scss'
 
 export default function MainPageStudent() {
     const [active, setActive] = useState('notifications')
@@ -12,13 +13,27 @@ export default function MainPageStudent() {
                 <img className='main-logo' src='../../../public/logoMainPage.png' />
                 <nav>
                     <ul>
-                        {active === 'notifications' ? <li className='active'><a onClick={() => { setActive('notifications') }}>Уведомления</a></li> : <li><a onClick={() => { setActive('notifications') }}>Уведомления</a></li>}
-                        {active === 'deadline' ? <li className='active'><a onClick={() => { setActive('deadline') }}>Дедлайн</a></li> : <li><a onClick={() => { setActive('deadline') }}>Дедлайн</a></li>}
+                        {active === 'notifications' ? <li>
+                            <a className='active' onClick={() => { setActive('notifications') }}>Уведомления</a>
+                        </li> : <li>
+                            <a onClick={() => { setActive('notifications') }}>Уведомления</a>
+                        </li>}
+                        {active === 'deadline' ? <li >
+                            <a className='active' onClick={() => { setActive('deadline') }}>Дедлайн</a>
+                        </li> : <li>
+                            <a onClick={() => { setActive('deadline') }}>Дедлайн</a>
+                        </li>}
                     </ul>
+
+                    {active === 'profile' ? <button className="profile active" onClick={() => { setActive('profile') }}><img src="../../../../public/profileActive.png" /></button>
+                        : <button className="profile" onClick={() => { setActive('profile') }}><img src="../../../../public/profile.png" /></button>}
                 </nav>
             </header>
 
-            {active === 'notifications' ? <NotificationsSection /> : <DeadlineSection />}
+
+            {active === 'notifications' && <NotificationsSectionStudent />}
+            {active === 'deadline' && <DeadlineSection />}
+            {active === 'profile' && <ProfileSectionStudent />}
         </section>
     )
 }

@@ -1,0 +1,77 @@
+@mixin button-default {
+    color: #fff;
+    background-color: #C123AB;
+    padding: 5px 50px;
+    font-size: 24px;
+    font-family: 'Jura', sans-serif;
+    border: none;
+    border-radius: 10px;
+    transition: all 500ms ease;
+    margin-left: auto;
+    box-shadow: 0 7px 5px #00000040;
+
+    &:hover {
+        cursor: pointer;
+        background-color: rgba(156, 32, 139, 1);
+    }
+}
+
+
+@mixin button-submit {
+    padding: 5px;
+    border-radius: 10px;
+    border: none;
+    color: #FFF;
+    background-color: #C123AB;
+    transition: all 500ms ease;
+
+    position: relative;
+    left: 730px;
+    bottom: 50px;
+
+    &:hover {
+        cursor: pointer;
+        background-color: rgba(156, 32, 139, 1);
+    }
+}
+
+@mixin button-close {
+    background-color: #C123AB;
+    border-radius: 50px;
+    position: absolute;
+    left: 800px;
+    top: -20px;
+    transition: all 500ms ease;
+
+    &:hover {
+        background-color: rgba(156, 32, 139, 1);
+        cursor: pointer;
+        transform: scale(1.1);
+    }
+}
+
+@mixin button-delete {
+    border: none;
+    background-color: #FFF;
+    transition: all 500ms ease;
+
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+    }
+}
+
+@mixin button-profile-disabled {
+    font-family: 'Jura', sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    color: #fff;
+    background-color: #B97CAF;
+    border: none;
+    border-radius: 10px;
+    padding: 5px 40px;
+
+    &:hover {
+        cursor: not-allowed;
+    }
+}
