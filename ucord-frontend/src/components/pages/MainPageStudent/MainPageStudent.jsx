@@ -10,7 +10,7 @@ export default function MainPageStudent() {
     return (
         <section className="main-page">
             <header className="header">
-                <img className='main-logo' src='../../../public/logoMainPage.png' />
+                <img className='main-logo' src='../../../public/logoMainPage.png' onClick={() => setActive('notifications')} />
                 <nav>
                     <ul>
                         {active === 'notifications' ? <li>

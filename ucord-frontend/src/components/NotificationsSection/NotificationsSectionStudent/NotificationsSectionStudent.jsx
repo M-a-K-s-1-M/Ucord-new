@@ -1,57 +1,28 @@
 import './NotificationsSectionStudent.scss'
-import axios from 'axios';
 import ChatModalSection from '../../Modal/ChatModalSection/ChatModalSection.jsx'
-import { useEffect, useState } from 'react';
 import AskModalSection from '../../Modal/AskModalSection/AskModalSection.jsx';
-import { useNavigate } from 'react-router-dom';
-
-
-
+import { useState } from 'react';
 
 export default function NotificationsSection() {
     const [isModalChatOpen, setIsModalChatlOpen] = useState(false);
     const [isModalAskOpen, setIsModalAskOpen] = useState(false);
 
-    const [dataAdBlock, setDataAdBlock] = useState({})
 
     const openModalChat = () => {
         setIsModalChatlOpen(true);
-        document.body.classList.add('modal-open');
     }
 
     const closeModalChat = () => {
         setIsModalChatlOpen(false);
-        document.body.classList.remove('modal-open');
     }
 
     const openModalAsk = () => {
         setIsModalAskOpen(true);
-        document.body.classList.add('modal-open');
     }
 
     const closeModalAsk = () => {
         setIsModalAskOpen(false);
-        document.body.classList.remove('modal-open');
     }
-
-    const adData = async () => {
-
-        await axios.get('http://localhost:8081/api/v1/personal-account/announcement/search', {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`
-            }
-        }).then(response => {
-            console.log(response)
-            return response.data.content
-        }).catch(error => {
-            console.log(error);
-            return null
-        })
-    }
-
-    // useEffect(() => {
-    //     setDataAdBlock(adData());
-    // }, [])
 
     return (
         <main className='notifications'>
@@ -65,7 +36,7 @@ export default function NotificationsSection() {
                     <li className='ad-item'>
                         <div className='title-container'>
                             <h3>Изменение расписания занятий по Программированию</h3>
-                            <button type='button'>Подробнее</button>
+                            <button type='button' >Подробнее</button>
                         </div>
                         <p className='description'>В связи с проведением технических работ в аудитории 314,
                             изменяется расписание занятий по Программированию для группы РТФ-212.

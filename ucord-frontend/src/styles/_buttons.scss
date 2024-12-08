@@ -37,11 +37,12 @@
 
 @mixin button-close {
     background-color: #C123AB;
-    border-radius: 50px;
+    border-radius: 10px;
     position: absolute;
     left: 800px;
     top: -20px;
     transition: all 500ms ease;
+    width: 50px;
 
     &:hover {
         background-color: rgba(156, 32, 139, 1);

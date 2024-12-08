@@ -1,4 +1,9 @@
 @use '../../../styles/buttons' as *;
+@use '../../../styles/backgrounds' as *;
+
+.bg-wrapper {
+    @include bg-wrapper;
+}
 
 .more-container {
     background-color: #EADCE8;
@@ -14,8 +19,6 @@
     font-size: 24px;
     font-weight: 400;
     z-index: 100;
-
-    border: 5px solid #000;
 
     /* Кнопка закрыть окно */
 
