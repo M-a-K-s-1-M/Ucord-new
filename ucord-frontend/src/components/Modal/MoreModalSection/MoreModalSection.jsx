@@ -2,7 +2,7 @@ import './MoreModalSection.scss'
 
 export default function MoreSection({ onClickClose }) {
     return (
-        <>
+        <div className='bg-wrapper'>
             <section className="more-container">
                 <img className='close-img' src='../../../public/closeImage.png' width='50' onClick={onClickClose} />
                 <h3 className='title-deadline'>
@@ -22,6 +22,6 @@ export default function MoreSection({ onClickClose }) {
                     <button className="btn-delete"><img src='../../../../public/trash.svg' /></button>
                 </div>
             </section>
-        </>
+        </div>
     )
 }
