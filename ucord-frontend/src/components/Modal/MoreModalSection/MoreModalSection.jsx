@@ -1,7 +1,13 @@
+import { useState } from 'react'
 import './MoreModalSection.scss'
+import ReactDOM from 'react-dom'
+import DeleteModal from '../DeleteModal/DeleteModal';
+
 
 export default function MoreSection({ onClickClose }) {
-    return (
+    const [isDelete, setIsDelete] = useState(false);
+
+    return ReactDOM.createPortal(
         <div className='bg-wrapper'>
             <section className="more-container">
                 <img className='close-img' src='../../../public/closeImage.png' width='50' onClick={onClickClose} />
@@ -17,11 +23,19 @@ export default function MoreSection({ onClickClose }) {
                         Конспект
                         <br /><br />
                         Р-333
+
                     </p>
 
-                    <button className="btn-delete"><img src='../../../../public/trash.svg' /></button>
+                    <button className="btn-delete" onClick={() => setIsDelete(true)}><img src='../../../../public/trash.svg' /></button>
+                    {isDelete && <DeleteModal onClose={() => setIsDelete(false)} type='deadline' />}
+                </div>
+
+                <div className='deadline-info'>
+                    <p className='object'>Физика</p>
+                    <p className='time'>12.04.25</p>
                 </div>
             </section>
-        </div>
+        </div>,
+        document.body
     )
 }

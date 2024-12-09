@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import './AskModalSection.scss';
+import ReactDOM from 'react-dom';
 
 export default function AskSection({ onClickClose, isModalChatOpen }) {
     const [themeText, setThemeText] = useState('');
@@ -37,7 +38,7 @@ export default function AskSection({ onClickClose, isModalChatOpen }) {
         };
     }, [isModalChatOpen]);
 
-    return (
+    return ReactDOM.createPortal(
         <div className="bg-wrapper">
 
             <section className='ask-container'>
@@ -70,6 +71,7 @@ export default function AskSection({ onClickClose, isModalChatOpen }) {
                     </div>
                 </form>
             </section>
-        </div>
+        </div>,
+        document.body
     )
 }

@@ -39,6 +39,7 @@
     }
 
     .description-deadline-container {
+        position: relative;
         box-sizing: border-box;
         background-color: #fff;
         height: 780px;
@@ -48,6 +49,8 @@
         text-overflow: clip;
         overflow-y: auto;
 
+        margin-bottom: 15px;
+
         .description {
             font-size: 24px;
             line-height: 28px;
@@ -56,9 +59,22 @@
         .btn-delete {
             @include button-delete;
             position: absolute;
-            top: 845px;
+            top: 745px;
         }
-
-
     }
+
+    .deadline-info {
+        display: flex;
+        justify-content: space-between;
+
+        .object,
+        .time {
+            font-size: 32px;
+            font-weight: 400;
+            padding: 10px 20px;
+            background-color: #FFF;
+            border-radius: 10px;
+        }
+    }
+
 }

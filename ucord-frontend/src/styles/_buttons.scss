@@ -76,3 +76,39 @@
         cursor: not-allowed;
     }
 }
+
+@mixin button-yes {
+    font-family: 'Jura', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    padding: 8px 20px;
+    border-radius: 10px;
+    color: #fff;
+    background-color: #12bb02;
+    border: none;
+    outline: none;
+    transition: all 500ms ease;
+
+    &:hover {
+        cursor: pointer;
+        background-color: #10a702;
+    }
+}
+
+@mixin button-no {
+    font-family: 'Jura', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    padding: 8px 20px;
+    border-radius: 10px;
+    color: #fff;
+    background-color: #9e0707;
+    border: none;
+    outline: none;
+    transition: all 500ms ease;
+
+    &:hover {
+        cursor: pointer;
+        background-color: #770505;
+    }
+}
