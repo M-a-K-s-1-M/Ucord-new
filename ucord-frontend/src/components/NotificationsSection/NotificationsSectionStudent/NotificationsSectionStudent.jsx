@@ -2,33 +2,56 @@ import './NotificationsSectionStudent.scss'
 import ChatModalSection from '../../Modal/ChatModalSection/ChatModalSection.jsx'
 import AskModalSection from '../../Modal/AskModalSection/AskModalSection.jsx';
 import { useState } from 'react';
+import DeleteModal from '../../Modal/DeleteModal/DeleteModal.jsx';
 
 export default function NotificationsSection() {
-    const [isModalChatOpen, setIsModalChatlOpen] = useState(false);
-    const [isModalAskOpen, setIsModalAskOpen] = useState(false);
+    const [isChat, setIsChat] = useState(false);
+    const [isAsk, setIsAsk] = useState(false);
+    const [isDelete, setIsDelete] = useState(false);
+
+    const [modals, setModals] = useState({});
+
+    const handleDeleteClick = (itemId) => {
+        setModals(prev => ({
+            ...prev,
+            [itemId]: !prev[itemId]
+        }));
+    };
+
+    // проверка статуса у вопроса 
+    // const renderRequestItem = (li) => {
+    //     const shouldShowDeleteModal = li.className.includes('decided') || li.className.includes('expected');
+
+    //     return (
+    //         <li className={li.className}>
+    //             {/* ... остальной код li ... */}
+    //             {shouldShowDeleteModal && <DeleteModal />}
+    //         </li>
+    //     );
+    // };
 
 
     const openModalChat = () => {
-        setIsModalChatlOpen(true);
+        setIsChat(true);
     }
 
     const closeModalChat = () => {
-        setIsModalChatlOpen(false);
+        setIsChat(false);
     }
 
     const openModalAsk = () => {
-        setIsModalAskOpen(true);
+        setIsAsk(true);
     }
 
     const closeModalAsk = () => {
-        setIsModalAskOpen(false);
+        setIsAsk(false);
     }
 
     return (
         <main className='notifications'>
 
-            {isModalChatOpen && <ChatModalSection onClickClose={closeModalChat} />}
-            {isModalAskOpen && <AskModalSection onClickClose={closeModalAsk} />}
+            {isChat && <ChatModalSection onClickClose={closeModalChat} />}
+            {isAsk && <AskModalSection onClickClose={closeModalAsk} />}
 
             <section className='block-ad'>
 
@@ -53,7 +76,7 @@ export default function NotificationsSection() {
             <section className='block-requests'>
                 <ul className='requests-list'>
 
-                    <li className='requests-item'>
+                    <li className='requests-item resolve'>
                         <div className='title-container'>
                             <h3>Проблема с доступом к университетской сети</h3>
                             <button className='btn-status resolve'>Решается</button>
@@ -63,10 +86,11 @@ export default function NotificationsSection() {
                             скорость очень низкая. Куда мне обратиться для решения данной проблемы?</p>
                         <div className='btn-wrapper'>
                             <button className='btn-chat' type='button' onClick={openModalChat}>Чат</button>
+
                         </div>
                     </li>
 
-                    <li className='requests-item'>
+                    <li className='requests-item decided'>
                         <div className='title-container'>
                             <h3>Вопрос по поводу изменения расписания занятий</h3>
                             <button className='btn-status decided'>Решено</button>
@@ -76,20 +100,22 @@ export default function NotificationsSection() {
                             будут проходить...
                         </p>
                         <div className='btn-wrapper'>
-                            <button className="btn-deleted" type='button' ><img src='../../../../public/trash.svg' /></button>
+                            <button className="btn-deleted" type='button' onClick={() => setIsDelete(true)}><img src='../../../../public/trash.svg' /></button>
                             <button className='btn-chat' type='button' onClick={openModalChat}>Чат</button>
                         </div>
+                        {isDelete && <DeleteModal onClose={() => setIsDelete(false)} type='request' />}
                     </li>
 
-                    <li className='requests-item'>
+                    <li className='requests-item expected'>
                         <div className='title-container'>
                             <h3>Необходимость уточнения деталей переноса занятий</h3>
                             <button className='btn-status expected'>Ожидает принятия</button>
                         </div>
                         <p className='description'>Здравствуйте, уважаемый куратор! Я хотел бы получить дополнительные разъяснения по поводу переноса занятий по Программированию....</p>
                         <div className='btn-wrapper'>
-                            <button className="btn-deleted" type='button' ><img src='../../../../public/trash.svg' /></button>
+                            <button className="btn-deleted" type='button' onClick={() => setIsDelete(true)}><img src='../../../../public/trash.svg' /></button>
                         </div>
+                        {isDelete && <DeleteModal onClose={() => setIsDelete(false)} type='request' />}
                     </li>
 
                 </ul>

@@ -1,7 +1,10 @@
 import { useState } from "react";
 import './ChatModalSection.scss';
+import ReactDOM from 'react-dom';
+import ProblemModal from "../ProblemModal/ProblemModal";
 
 export default function ChatSection({ onClickClose }) {
+    const [isProblem, setIsProblem] = useState(false);
 
     const [textMessage, setTextMessage] = useState('');
 
@@ -10,7 +13,7 @@ export default function ChatSection({ onClickClose }) {
         console.log(evt.target.value)
     }
 
-    return (
+    return ReactDOM.createPortal(
         <div className="bg-wrapper">
             <section className="chat-container">
                 <img className="close-img" src="../../../public/closeImage.png" width='50' onClick={onClickClose} />
@@ -52,10 +55,13 @@ export default function ChatSection({ onClickClose }) {
                 </div>
 
                 <div className="status-container">
-                    <a href='#'>Проблема решена?</a>
+                    <a href='#' onClick={(evt) => { evt.preventDefault(); setIsProblem(true) }}>Проблема решена?</a>
+                    {isProblem && <ProblemModal onClose={() => setIsProblem(false)} />}
                 </div>
 
+
             </section>
-        </div>
+        </div>,
+        document.body
     )
 }

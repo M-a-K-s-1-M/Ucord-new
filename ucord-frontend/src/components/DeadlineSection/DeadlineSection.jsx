@@ -1,24 +1,27 @@
 import { useState } from "react"
 import './DeadlineSection.scss'
 import MoreModalSection from "../Modal/MoreModalSection/MoreModalSection";
+import AddDeadlineModal from "../Modal/AddDeadlineModal/AddDeadlineModal";
 
 export default function DeadlineSection() {
     const [subjectText, setSubjectText] = useState('');
     const [dataText, setDataText] = useState('');
+    const [isAddDeadline, setIsAddDeadline] = useState(false);
 
-    const [modalMoreOpen, setModalMoreOpen] = useState(false);
+    const [isModalMore, setIsModalMore] = useState(false);
 
     const openModalMore = () => {
-        setModalMoreOpen(true);
+        setIsModalMore(true);
     }
 
     const closeModalMore = () => {
-        setModalMoreOpen(false);
+        setIsModalMore(false);
     }
 
     return (
         <main className="deadline-container">
-            {modalMoreOpen && <MoreModalSection onClickClose={closeModalMore} />}
+            {isModalMore && <MoreModalSection onClickClose={closeModalMore} />}
+            {isAddDeadline && <AddDeadlineModal onClickClose={() => setIsAddDeadline(false)} />}
             <section className="deadline">
                 <form className="deadline-form">
 
@@ -48,17 +51,17 @@ export default function DeadlineSection() {
 
                 <ul className="deadline-list">
                     <li className="deadline-item">
-                        <p className="description">Лабораторная по Физике</p>
-                        <p className="data">12 апреля 2025</p>
-                        <button type='button' onClick={openModalMore}>Подробнее</button>
+                        <div className="object-container">
+                            <p className="description">Лабораторная работа</p>
+                            <p className="object">Физика</p>
+                        </div>
+                        <p className="date">12 апреля 2025</p>
+                        <button className='btn-more' type='button' onClick={openModalMore}>Подробнее</button>
                     </li>
-
-
-
                 </ul>
 
                 <div className="btn-wrapper">
-                    <button className="btn-add"><img src='../../../public/plus.png' width='60' /></button>
+                    <button className="btn-add" onClick={() => setIsAddDeadline(true)} ><img src='../../../public/plus.png' width='60' /></button>
                 </div>
 
             </section>
