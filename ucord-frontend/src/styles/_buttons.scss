@@ -112,3 +112,50 @@
         background-color: #770505;
     }
 }
+
+@mixin button-checkbox {
+    box-sizing: border-box;
+    appearance: none;
+    position: relative;
+    width: 30px;
+    height: 30px;
+    background: #FFF;
+
+    border-radius: 5px;
+    border: 2px solid #C123AB;
+    transition: 300ms;
+    outline: none;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &::after {
+        box-sizing: border-box;
+        content: "\2714";
+        width: 30px;
+        height: 30px;
+        color: #fff;
+        font-size: 26px;
+        transition: 300ms;
+        overflow: hidden;
+        border-radius: 5px;
+        outline: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        bottom: 1px;
+    }
+
+    &:checked::after {
+        box-sizing: border-box;
+        bottom: 0.3px;
+        color: #C123AB;
+        width: 30px;
+        height: 30px;
+        transition: 300ms;
+        border-radius: 5px;
+        outline: none;
+    }
+}
