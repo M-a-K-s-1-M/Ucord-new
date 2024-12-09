@@ -2,7 +2,7 @@
 // import { Route, Routes } from 'react-router-dom'
 // import SignUpSection from './components/Forms/SignUpSection/SignUpSection.jsx'
 import MainPageStudent from '../components/pages/MainPageStudent/MainPageStudent.jsx'
-// import MainPageTutor from '../components/pages/MainPageTutor/MainPageTutor.jsx'
+import MainPageTutor from '../components/pages/MainPageTutor/MainPageTutor.jsx'
 
 export default function App() {
   return (
@@ -19,9 +19,7 @@ export default function App() {
 
       {/* <MainPageStudent /> */}
 
-      {/* <MainPageTutor /> */}
-
-      <MainPageStudent />
+      <MainPageTutor />
     </>
   )
 }
