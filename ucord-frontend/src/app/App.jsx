@@ -1,4 +1,4 @@
-// import SignInSection from './components/Forms/SignInSection/SignInSection.jsx'
+// import SignInSection from '../components/Forms/SignInSection/SignInSection.jsx'
 // import { Route, Routes } from 'react-router-dom'
 // import SignUpSection from './components/Forms/SignUpSection/SignUpSection.jsx'
 import MainPageStudent from '../components/pages/MainPageStudent/MainPageStudent.jsx'
@@ -17,9 +17,9 @@ export default function App() {
         />
       </Routes > */}
 
-      {/* <MainPageStudent /> */}
+      <MainPageStudent />
 
-      <MainPageTutor />
+      {/* <MainPageTutor /> */}
     </>
   )
 }

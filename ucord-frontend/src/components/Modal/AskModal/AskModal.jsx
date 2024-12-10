@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import './AskModalSection.scss';
+import './AskModal.scss';
 import ReactDOM from 'react-dom';
 
-export default function AskSection({ onClickClose, isModalChatOpen }) {
+export default function AskModal({ onClickClose, isModalChatOpen }) {
     const [themeText, setThemeText] = useState('');
     const [descriptionText, setDescriptionText] = useState('');
 

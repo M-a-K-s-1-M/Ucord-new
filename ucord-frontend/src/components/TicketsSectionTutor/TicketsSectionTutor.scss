@@ -107,6 +107,8 @@
                 font-family: 'Jura', sans-serif;
                 border-radius: 10px;
                 transition: all 500ms ease;
+                opacity: 0.7;
+
 
                 &:hover {
                     cursor: pointer;
@@ -119,6 +121,7 @@
             }
 
             .btn-resolve.active {
+                opacity: 1;
                 background-color: #C123AB;
             }
 
@@ -127,6 +130,7 @@
             }
 
             .btn-decided.active {
+                opacity: 1;
                 background-color: #13E800;
             }
         }

@@ -1,11 +1,14 @@
-import './ProfileSecitonStudent.scss';
+import { useState } from 'react';
+import './ProfileStudent.scss';
+import LogoutModal from '../../Modal/LogoutModal/LogoutModal';
 
-export default function ProfileSectionStudent() {
+export default function ProfileStudent() {
+    const [isLogout, setIsLogout] = useState(false);
 
     return (
         <section className="profile-container">
             <section className="profile">
-                <h3>Основная информация</h3>
+                <h3 className='title-form'>Основная информация</h3>
                 <form>
                     <label htmlFor="role">Роль</label>
                     <input type='text' id='role' name="role" disabled />
@@ -25,7 +28,7 @@ export default function ProfileSectionStudent() {
                     <button className="btn-save disabled" type="submit">Сохранить</button>
                 </form>
 
-                <h3>Смена пароля</h3>
+                <h3 className='title-form'>Смена пароля</h3>
                 <form>
                     <label htmlFor="password">Пароль</label>
                     <input type='password' id='password' name="password" autoComplete='off' required />
@@ -39,7 +42,10 @@ export default function ProfileSectionStudent() {
                     <button className="btn-change disabled" type="submit">Поменять</button>
                 </form>
 
-                <a href="#">Выйти из аккаунта</a>
+                <div className="logout-link-wrapper">
+                    <a href="#" onClick={() => setIsLogout(true)}>Выйти из аккаунта</a>
+                    {isLogout && <LogoutModal onClose={() => setIsLogout(false)} />}
+                </div>
             </section>
         </section>
     )

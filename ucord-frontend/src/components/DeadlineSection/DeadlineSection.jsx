@@ -1,6 +1,6 @@
 import { useState } from "react"
 import './DeadlineSection.scss'
-import MoreModalSection from "../Modal/MoreModalSection/MoreModalSection";
+import MoreModal from "../Modal/MoreModal/MoreModal";
 import AddDeadlineModal from "../Modal/AddDeadlineModal/AddDeadlineModal";
 
 export default function DeadlineSection() {
@@ -20,7 +20,7 @@ export default function DeadlineSection() {
 
     return (
         <main className="deadline-container">
-            {isModalMore && <MoreModalSection onClickClose={closeModalMore} />}
+            {isModalMore && <MoreModal onClickClose={closeModalMore} />}
             {isAddDeadline && <AddDeadlineModal onClickClose={() => setIsAddDeadline(false)} />}
             <section className="deadline">
                 <form className="deadline-form">

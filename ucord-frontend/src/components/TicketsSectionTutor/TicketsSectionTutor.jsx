@@ -1,8 +1,17 @@
+import { useState } from 'react'
 import './TicketsSectionTutor.scss'
+import ChatModalTutor from '../Modal/ChatModal/ChatModalTutor/ChatModalTutor';
+import ChatsListResolve from '../ChatsListInTickets/ChatListResolve/ChatsListResolve';
+import ChatsListDecided from '../ChatsListInTickets/ChatsListDecided/ChatsListDecided';
 
 export default function TicketsSectionTutor() {
+    const [isChat, setIsChat] = useState(false);
+    const [statusChat, setStatusChat] = useState('resolve')
+
+
     return (
         <section className="tickets-t">
+            {isChat && <ChatModalTutor onClickClose={() => setIsChat(false)} />}
             <section className='tickets-container'>
                 <ul className='tickets-list'>
                     <li className='ticket-item'>
@@ -30,13 +39,15 @@ export default function TicketsSectionTutor() {
 
             <section className='chats-container'>
                 <div className='btn-wrapper'>
-                    <button className='btn-resolve active'>Решается</button>
-                    <button className="btn-decided">Решено</button>
+                    {statusChat === 'resolve' ? <button className='btn-resolve active'>Решается</button> : <button className='btn-resolve' onClick={() => setStatusChat('resolve')}>Решается</button>}
+                    {statusChat === 'decided' ? <button className='btn-decided active'>Решено</button> : <button className='btn-decided' onClick={() => setStatusChat('decided')}>Решено</button>}
                 </div>
 
-                <div className="chats-list-wrapper">
+                {statusChat === 'resolve' && <ChatsListResolve onClickChat={() => setIsChat(true)} />}
+                {statusChat === 'decided' && <ChatsListDecided onClickChat={() => setIsChat(true)} />}
+                {/* {statusChat === 'decided' && } */}
 
-
+                {/* <div className="chats-list-wrapper">
                     <ul className="chats-list">
                         <li className='chat-item'>
                             <div className='info-chat-wrapper'>
@@ -53,11 +64,12 @@ export default function TicketsSectionTutor() {
                                     <p className='student'>Костылев Эдуард Сергеевич</p>
                                     <p className='group'>РИ-230941</p>
                                 </div>
-                                <button className='btn-chat'>Чат</button>
+                                <button type='button' className='btn-chat' onClick={() => setIsChat(true)}>Чат</button>
                             </div>
                         </li>
+
                     </ul>
-                </div>
+                </div> */}
             </section>
         </section>
     )
