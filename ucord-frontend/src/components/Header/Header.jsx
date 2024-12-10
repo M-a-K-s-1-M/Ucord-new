@@ -1,11 +1,32 @@
+import { Link, NavLink } from 'react-router-dom'
 import './Header.scss'
-export default function Header({ active, onClick }) {
+// import { useRoles } from '../../hooks/useRoles';
+
+export default function Header() {
+    // const currentUserRole = useRoles();
+    const currentUserRole = 'student';
+
+    const tabs = {
+        tutor: [
+            { label: 'Уведомления', to: '/tutor/notifications' },
+            { label: 'Тикеты', to: '/tutor/tickets' },
+            { label: 'Профиль', to: '/tutor/profile' },
+        ],
+        student: [
+            { label: 'Уведомления', to: '/student/notifications' },
+            { label: 'Дедлайны', to: '/student/deadlines' },
+            { label: 'Профиль', to: '/student/profile' },
+        ]
+    };
+
+    const currentTabs = currentUserRole ? tabs[currentUserRole.toLowerCase()] : [];
+
     return (
         <header className="header">
-            <img className='main-logo' src='../../../public/logoMainPage.png' onClick={() => setActive('notifications')} />
+            <NavLink to={currentTabs[0].to}><img className='main-logo' src='../../../public/logoMainPage.png' /></NavLink>
             <nav>
                 <ul>
-                    {active === 'notifications' ? <li>
+                    {/* {active === 'notifications' ? <li>
                         <a className='active' onClick={onClick}>Уведомления</a>
                     </li> : <li>
                         <a onClick={onClick}>Уведомления</a>
@@ -14,11 +35,16 @@ export default function Header({ active, onClick }) {
                         <a className='active' onClick={onClick}>Дедлайн</a>
                     </li> : <li>
                         <a onClick={onClick}>Дедлайн</a>
-                    </li>}
+                    </li>} */}
+
+                    <li><NavLink className='link' to={currentTabs[0].to}>{currentTabs[0].label}</NavLink></li>
+                    <li><NavLink className='link' to={currentTabs[1].to}>{currentTabs[1].label}</NavLink></li>
                 </ul>
 
-                {active === 'profile' ? <button className="profile active" onClick={onClick}><img src="../../../../public/profileActive.png" /></button>
-                    : <button className="profile" onClick={onClick}><img src="../../../../public/profile.png" /></button>}
+                {/* {active === 'profile' ? <button className="profile active" onClick={onClick}><img src="../../../../public/profileActive.png" /></button>
+                    : <button className="profile" onClick={onClick}><img src="../../../../public/profile.png" /></button>} */}
+                <button className='btn-profile'><NavLink className='link-profile' to={currentTabs[2].to}></NavLink></button>
+
             </nav>
         </header>
     )
