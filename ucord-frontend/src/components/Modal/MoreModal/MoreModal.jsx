@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import './MoreModalSection.scss'
+import './MoreModal.scss'
 import ReactDOM from 'react-dom'
 import DeleteModal from '../DeleteModal/DeleteModal';
 
 
-export default function MoreSection({ onClickClose }) {
+export default function MoreModal({ onClickClose }) {
     const [isDelete, setIsDelete] = useState(false);
 
     return ReactDOM.createPortal(

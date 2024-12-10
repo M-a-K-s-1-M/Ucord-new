@@ -1,7 +1,7 @@
 import { useState } from "react";
 import NotificationsSectionStudent from "../../NotificationsSection/NotificationsSectionStudent/NotificationsSectionStudent";
 import DeadlineSection from "../../DeadlineSection/DeadlineSection";
-import ProfileSectionStudent from "../../Profile/ProfileSectionStudent";
+import ProfileStudent from "../../Profile/ProfileStudent/ProfileStudent";
 import './MainPageStudent.scss'
 
 export default function MainPageStudent() {
@@ -33,7 +33,8 @@ export default function MainPageStudent() {
 
             {active === 'notifications' && <NotificationsSectionStudent />}
             {active === 'deadline' && <DeadlineSection />}
-            {active === 'profile' && <ProfileSectionStudent />}
+            {active === 'profile' && <ProfileStudent />}
         </section>
+        // <NotificationsSectionStudent />
     )
 }

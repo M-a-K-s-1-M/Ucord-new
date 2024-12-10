@@ -18,6 +18,10 @@
 
 
 @mixin button-submit {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 5px;
     border-radius: 10px;
     border: none;
@@ -25,9 +29,10 @@
     background-color: #C123AB;
     transition: all 500ms ease;
 
-    position: relative;
-    left: 730px;
-    bottom: 50px;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+
 
     &:hover {
         cursor: pointer;
@@ -71,10 +76,7 @@
     border: none;
     border-radius: 10px;
     padding: 5px 40px;
-
-    &:hover {
-        cursor: not-allowed;
-    }
+    pointer-events: none;
 }
 
 @mixin button-yes {

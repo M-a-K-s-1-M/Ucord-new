@@ -1,10 +1,10 @@
 import './NotificationsSectionStudent.scss'
-import ChatModalSection from '../../Modal/ChatModalSection/ChatModalSection.jsx'
-import AskModalSection from '../../Modal/AskModalSection/AskModalSection.jsx';
+import ChatModalStudent from '../../Modal/ChatModal/ChatModalStudent/ChatModalStudent.jsx'
+import AskModal from '../../Modal/AskModal/AskModal.jsx';
 import { useState } from 'react';
 import DeleteModal from '../../Modal/DeleteModal/DeleteModal.jsx';
 
-export default function NotificationsSection() {
+export default function NotificationsSectionStudent() {
     const [isChat, setIsChat] = useState(false);
     const [isAsk, setIsAsk] = useState(false);
     const [isDelete, setIsDelete] = useState(false);
@@ -50,8 +50,8 @@ export default function NotificationsSection() {
     return (
         <main className='notifications'>
 
-            {isChat && <ChatModalSection onClickClose={closeModalChat} />}
-            {isAsk && <AskModalSection onClickClose={closeModalAsk} />}
+            {isChat && <ChatModalStudent onClickClose={closeModalChat} />}
+            {isAsk && <AskModal onClickClose={closeModalAsk} />}
 
             <section className='block-ad'>
 

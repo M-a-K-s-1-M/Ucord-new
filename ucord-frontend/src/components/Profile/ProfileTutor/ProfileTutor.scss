@@ -1,7 +1,7 @@
-@use '../../styles/buttons' as *;
-@use '../../styles/links' as *;
+@use '../../../styles/buttons' as *;
+@use '../../../styles/links' as *;
 
-.profile-container {
+.profile-container-t {
     box-sizing: border-box;
     padding: 30px 0;
 
@@ -13,7 +13,7 @@
         margin: 0 auto;
         text-align: center;
 
-        h3 {
+        .form-title {
             background-color: #9A1D89;
             padding: 5px 70px;
             color: #FFF;
@@ -69,10 +69,15 @@
             @include button-default;
         }
 
-        a {
-            @include link-default;
-            display: inline-block;
-            margin-bottom: 15px;
+        .logout-link-wrapper {
+            position: relative;
+
+            a {
+                @include link-default;
+                display: inline-block;
+                margin-bottom: 15px;
+            }
+
         }
 
     }
