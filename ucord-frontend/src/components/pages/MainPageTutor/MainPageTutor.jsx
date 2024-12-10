@@ -9,7 +9,7 @@ export default function MainPageTutor() {
     return (
         <section className="main-page-t">
             <header className="header">
-                <img className='main-logo' src='../../../public/logoMainPage.png' />
+                <img className='main-logo' src='../../../public/logoMainPage.png' onClick={() => setActive('notifications')} />
                 <nav>
                     <ul>
                         {active === 'notifications' ? <li><a className='active' onClick={() => { setActive('notifications') }}>Уведомления</a></li> : <li><a onClick={() => { setActive('notifications') }}>Уведомления</a></li>}
