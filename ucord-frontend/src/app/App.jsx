@@ -1,25 +1,35 @@
-// import SignInSection from '../components/Forms/SignInSection/SignInSection.jsx'
-// import { Route, Routes } from 'react-router-dom'
-// import SignUpSection from './components/Forms/SignUpSection/SignUpSection.jsx'
-import MainPageStudent from '../components/pages/MainPageStudent/MainPageStudent.jsx'
-import MainPageTutor from '../components/pages/MainPageTutor/MainPageTutor.jsx'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Header from '../components/Header/Header.jsx';
+
+import SignInSection from '../components/Forms/SignInSection/SignInSection.jsx';
+import SignUpSection from '../components/Forms/SignUpSection/SignUpSection.jsx';
+
+import NotificationsSectionStudent from '../components/NotificationsSection/NotificationsSectionStudent/NotificationsSectionStudent.jsx';
+import DeadlineSection from '../components/DeadlineSection/DeadlineSection.jsx';
+import ProfileStudent from '../components/Profile/ProfileStudent/ProfileStudent.jsx';
+
+import NotificationsSectionTutor from '../components/NotificationsSection/NotificationsSectionTutor/NotificationsSectionTutor.jsx';
+import TicketsSectionTutor from '../components/TicketsSectionTutor/TicketsSectionTutor.jsx';
+import ProfileTutor from '../components/Profile/ProfileTutor/ProfileTutor.jsx';
 
 export default function App() {
   return (
-    <>
-      {/* <Routes>
-        <Route path="/" element={<SignUpSection />} />
-        <Route path="/signin" element={<SignInSection />} />
+    <Router>
+      <Header />
+      <Routes>
+        <Route path="/" element={<SignInSection />} />
+        <Route path="/register" element={<SignUpSection />} />
 
-        <Route
-          path='/main'
-          element={<MainPageStudent />}
-        />
-      </Routes > */}
+        {/* Тьюторские маршруты */}
+        <Route path="/tutor/profile" element={<ProfileTutor />} />
+        <Route path="/tutor/notifications" element={<NotificationsSectionTutor />} />
+        <Route path="/tutor/tickets" element={<TicketsSectionTutor />} />
 
-      <MainPageStudent />
-
-      {/* <MainPageTutor /> */}
-    </>
-  )
+        {/* Студентские маршруты */}
+        <Route path="/student/profile" element={<ProfileStudent />} />
+        <Route path="/student/notifications" element={<NotificationsSectionStudent />} />
+        <Route path="/student/deadlines" element={<DeadlineSection />} />
+      </Routes>
+    </Router>
+  );
 }
