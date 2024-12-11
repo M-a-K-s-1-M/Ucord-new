@@ -12,24 +12,36 @@ import NotificationsSectionTutor from '../components/NotificationsSection/Notifi
 import TicketsSectionTutor from '../components/TicketsSectionTutor/TicketsSectionTutor.jsx';
 import ProfileTutor from '../components/Profile/ProfileTutor/ProfileTutor.jsx';
 
+import TutorLayout from '../components/Layout/TutorLayout.jsx';
+import StudentLayout from '../components/Layout/StudentLayout.jsx';
+import DefaultPage from '../components/DefaultPage/DefaultPage.jsx';
+
+
 export default function App() {
   return (
     <Router>
-      <Header />
       <Routes>
         <Route path="/" element={<SignInSection />} />
-        <Route path="/register" element={<SignUpSection />} />
+        <Route path="/signup" element={<SignUpSection />} />
 
-        {/* Тьюторские маршруты */}
-        <Route path="/tutor/profile" element={<ProfileTutor />} />
-        <Route path="/tutor/notifications" element={<NotificationsSectionTutor />} />
-        <Route path="/tutor/tickets" element={<TicketsSectionTutor />} />
+        <Route path='tutor' element={<TutorLayout />}>
+          {/* Тьюторские маршруты */}
+          <Route index element={<DefaultPage />} />
+          <Route path="notifications" element={<NotificationsSectionTutor />} />
+          <Route path="tickets" element={<TicketsSectionTutor />} />
+          <Route path="profile" element={<ProfileTutor />} />
+        </Route>
 
-        {/* Студентские маршруты */}
-        <Route path="/student/profile" element={<ProfileStudent />} />
-        <Route path="/student/notifications" element={<NotificationsSectionStudent />} />
-        <Route path="/student/deadlines" element={<DeadlineSection />} />
+        <Route path='student' element={<StudentLayout />}>
+          {/* Студентские маршруты */}
+          <Route index element={<DefaultPage />} />
+          <Route path="notifications" element={<NotificationsSectionStudent />} />
+          <Route path="deadlines" element={<DeadlineSection />} />
+          <Route path="profile" element={<ProfileStudent />} />
+        </Route>
+
+
       </Routes>
-    </Router>
+    </Router >
   );
 }

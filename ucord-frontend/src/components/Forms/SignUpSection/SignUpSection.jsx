@@ -1,8 +1,7 @@
 import { useState } from "react";
 import Input from "../Input";
-import SubmitButton from '../../Buttons/Submit/SubmitButton'
 import { Link, useNavigate } from "react-router-dom";
-import './SignUpSection.css'
+import './SignUpSection.scss'
 import axios from "axios";
 import { validateAndJoinFIO } from "../ValidateAndJoinFIO";
 
@@ -71,7 +70,7 @@ export default function SignUpForm() {
     }
 
     return (
-        <section className="sign-up container">
+        <section className="sign-up">
             <img src='../../../../public/imageAuthorization.png' alt='' />
             <form className="auth-form" onSubmit={handleSubmit}>
 
@@ -179,13 +178,13 @@ export default function SignUpForm() {
                     </>
                 }
 
-                <SubmitButton>Регистрация</SubmitButton>
+                <button className="btn-auth" onClick={evt => { evt.preventDefault() }}>Регистрация</button>
             </form>
 
             {errorMessage && <p>{errorMessage}</p>}
 
 
-            <p>У меня уже есть аккаунт <Link to='/signin'>Войти</Link></p>
+            <p>У меня уже есть аккаунт <Link className='link' to='/'>Войти</Link></p>
         </section>
     )
 }

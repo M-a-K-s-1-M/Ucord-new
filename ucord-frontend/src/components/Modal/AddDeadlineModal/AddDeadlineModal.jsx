@@ -22,6 +22,8 @@ export default function AddDeadlineModal({ onClickClose }) {
                             onChange={evt => setTitleValue(evt.target.value)}
                             autoComplete='off'
                             autoCorrect='off'
+                            placeholder='Тема'
+                            maxLength='50'
                             required />
                     </label>
 
@@ -30,6 +32,7 @@ export default function AddDeadlineModal({ onClickClose }) {
                             className='description-input'
                             name='description'
                             id='description'
+                            placeholder='Описание'
                             value={descriptionValue}
                             onChange={evt => setDescriptionValue(evt.target.value)}
 
@@ -46,6 +49,8 @@ export default function AddDeadlineModal({ onClickClose }) {
                                 value={objectValue}
                                 onChange={evt => setObjectValue(evt.target.value)}
                                 autoCorrect='off'
+                                placeholder='Предмет'
+                                maxLength='30'
                                 required
                             />
                         </label>

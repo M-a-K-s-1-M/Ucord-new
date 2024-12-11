@@ -1,8 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react'
-import './SignInSection.css'
+import './SignInSection.scss'
 import axios from 'axios';
-import SubmitButton from '../../Buttons/Submit/SubmitButton';
 // import AuthService from '../../../services/AuthService';
 
 
@@ -28,7 +27,9 @@ export default function SignInForm() {
             .then(response => {
                 if (response.status === 200) {
                     localStorage.setItem('token', response.data.token)
-                    navigate('/main');
+
+                    // Добавить перемешение либо на /student, либо на /tutor
+                    navigate('/student');
                 }
             })
             .catch(async (error) => {
@@ -83,7 +84,7 @@ export default function SignInForm() {
     }
 
     return (
-        <section className='sign-in container'>
+        <section className='sign-in'>
             <img src="../../public/imageAuthorization.png"></img>
             <form className="auth-form" onSubmit={handleSubmit}>
                 <p>Email</p>
@@ -113,10 +114,10 @@ export default function SignInForm() {
                     ></input>
                 </label><br />
 
-                <SubmitButton>Вход</SubmitButton>
+                <button className='btn-auth' onClick={evt => { evt.preventDefault() }}>Вход</button>
             </form>
 
-            <p>У меня нет аккаунта <Link to='/'>Зарегистрироваться</Link></p>
+            <p>У меня нет аккаунта <Link className='link' to='/signup'>Зарегистрироваться</Link></p>
 
         </section>
     )

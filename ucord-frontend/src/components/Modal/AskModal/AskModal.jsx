@@ -11,8 +11,6 @@ export default function AskModal({ onClickClose, isModalChatOpen }) {
         console.log(themeText, descriptionText);
     }
 
-    //
-
     const [currentScrollPosition, setCurrentScrollPosition] = useState(0);
 
     useEffect(() => {

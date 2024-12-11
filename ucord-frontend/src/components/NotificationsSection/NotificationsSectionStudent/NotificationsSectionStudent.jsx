@@ -2,7 +2,8 @@ import './NotificationsSectionStudent.scss'
 import ChatModalStudent from '../../Modal/ChatModal/ChatModalStudent/ChatModalStudent.jsx'
 import AskModal from '../../Modal/AskModal/AskModal.jsx';
 import { useState } from 'react';
-import DeleteModal from '../../Modal/DeleteModal/DeleteModal.jsx';
+import AdList from '../../AdList/AdList.jsx';
+import DeleteRequest from '../../DeleteRequest/DeleteRequest.jsx';
 
 export default function NotificationsSectionStudent() {
     const [isChat, setIsChat] = useState(false);
@@ -47,6 +48,7 @@ export default function NotificationsSectionStudent() {
         setIsAsk(false);
     }
 
+
     return (
         <main className='notifications'>
 
@@ -54,23 +56,7 @@ export default function NotificationsSectionStudent() {
             {isAsk && <AskModal onClickClose={closeModalAsk} />}
 
             <section className='block-ad'>
-
-                <ul className='ad-list'>
-                    <li className='ad-item'>
-                        <div className='title-container'>
-                            <h3>Изменение расписания занятий по Программированию</h3>
-                            <button type='button' >Подробнее</button>
-                        </div>
-                        <p className='description'>В связи с проведением технических работ в аудитории 314,
-                            изменяется расписание занятий по Программированию для группы РТФ-212.
-                            Новое расписание: Занятия 26 октября будут проходить в аудитории 205.
-                            Уважаемые студенты группы РТФ-212!  Сообщаем вам, что в связи с проведением
-                            технических работ в аудитории 314...</p>
-                    </li>
-
-
-                </ul>
-
+                <AdList />
             </section>
 
             <section className='block-requests'>
@@ -100,10 +86,9 @@ export default function NotificationsSectionStudent() {
                             будут проходить...
                         </p>
                         <div className='btn-wrapper'>
-                            <button className="btn-deleted" type='button' onClick={() => setIsDelete(true)}><img src='../../../../public/trash.svg' /></button>
+                            <DeleteRequest />
                             <button className='btn-chat' type='button' onClick={openModalChat}>Чат</button>
                         </div>
-                        {isDelete && <DeleteModal onClose={() => setIsDelete(false)} type='request' />}
                     </li>
 
                     <li className='requests-item expected'>
@@ -113,9 +98,8 @@ export default function NotificationsSectionStudent() {
                         </div>
                         <p className='description'>Здравствуйте, уважаемый куратор! Я хотел бы получить дополнительные разъяснения по поводу переноса занятий по Программированию....</p>
                         <div className='btn-wrapper'>
-                            <button className="btn-deleted" type='button' onClick={() => setIsDelete(true)}><img src='../../../../public/trash.svg' /></button>
+                            <DeleteRequest />
                         </div>
-                        {isDelete && <DeleteModal onClose={() => setIsDelete(false)} type='request' />}
                     </li>
 
                 </ul>

@@ -7,8 +7,8 @@ export default function ProblemModal({ onClose }) {
             <p className='problem-description'>*при подтверждении диалог будет закрыт, доступ к чату будет только в формате просмотра</p>
 
             <div className="btn-problem-wrapper">
-                <dutton className="btn-yes">Да</dutton>
-                <dutton className="btn-no" onClick={onClose}>Нет</dutton>
+                <button className="btn-yes">Да</button>
+                <button className="btn-no" onClick={onClose}>Нет</button>
             </div>
         </section>
     )
