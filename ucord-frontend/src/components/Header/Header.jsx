@@ -22,30 +22,20 @@ export default function Header() {
     const currentTabs = currentUserRole ? tabs[currentUserRole.toLowerCase()] : [];
 
     return (
-        <header className="header">
-            <NavLink to={currentTabs[0].to}><img className='main-logo' src='../../../public/logoMainPage.png' /></NavLink>
-            <nav>
-                <ul>
-                    {/* {active === 'notifications' ? <li>
-                        <a className='active' onClick={onClick}>Уведомления</a>
-                    </li> : <li>
-                        <a onClick={onClick}>Уведомления</a>
-                    </li>}
-                    {active === 'deadline' ? <li >
-                        <a className='active' onClick={onClick}>Дедлайн</a>
-                    </li> : <li>
-                        <a onClick={onClick}>Дедлайн</a>
-                    </li>} */}
+        <>
 
-                    <li><NavLink className='link' to={currentTabs[0].to}>{currentTabs[0].label}</NavLink></li>
-                    <li><NavLink className='link' to={currentTabs[1].to}>{currentTabs[1].label}</NavLink></li>
-                </ul>
+            <header className="header">
+                <NavLink to={currentTabs[0].to}><img className='main-logo' src='../../../public/logoMainPage.png' /></NavLink>
+                <nav>
+                    <ul>
+                        <li><NavLink to={currentTabs[0].to} className={({ isActive }) => isActive ? 'link active' : 'link'} > {currentTabs[0].label}</NavLink></li>
+                        <li><NavLink to={currentTabs[1].to} className={({ isActive }) => isActive ? 'link active' : 'link'} >{currentTabs[1].label}</NavLink></li>
+                    </ul>
 
-                {/* {active === 'profile' ? <button className="profile active" onClick={onClick}><img src="../../../../public/profileActive.png" /></button>
-                    : <button className="profile" onClick={onClick}><img src="../../../../public/profile.png" /></button>} */}
-                <button className='btn-profile'><NavLink className='link-profile' to={currentTabs[2].to}></NavLink></button>
+                    <button className='btn-profile'><NavLink className={({ isActive }) => isActive ? 'link-profile active' : 'link-profile'} to={currentTabs[2].to}></NavLink></button>
 
-            </nav>
-        </header>
+                </nav>
+            </header >
+        </>
     )
 }

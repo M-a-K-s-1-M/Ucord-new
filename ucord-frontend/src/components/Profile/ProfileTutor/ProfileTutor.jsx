@@ -43,7 +43,7 @@ export default function ProfileTutor() {
                 </form>
 
                 <div className="logout-link-wrapper">
-                    <a href="#" onClick={() => setIsLogout(true)}>Выйти из аккаунта</a>
+                    <a href="#" onClick={(evt) => { evt.preventDefault(); setIsLogout(true) }}>Выйти из аккаунта</a>
                     {isLogout && <LogoutModal onClose={() => setIsLogout(false)} />}
                 </div>
             </section>

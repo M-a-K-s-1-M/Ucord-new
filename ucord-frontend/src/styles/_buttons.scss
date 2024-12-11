@@ -161,3 +161,22 @@
         outline: none;
     }
 }
+
+@mixin button-auth {
+    color: #fff;
+    font-family: 'Jura', sans-serif;
+    font-size: 40px;
+    width: 500px;
+    height: 55px;
+    background: linear-gradient(90deg, rgba(156, 32, 139, 1) 0%, rgba(193, 35, 171, 1) 100%);
+    ;
+    border-radius: 7px;
+    border: none;
+    margin-bottom: 33px;
+    transition: all 500ms ease;
+
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+    }
+}

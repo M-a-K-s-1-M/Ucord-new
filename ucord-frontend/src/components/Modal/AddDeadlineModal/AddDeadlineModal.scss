@@ -10,7 +10,7 @@
     background-color: #EADCE8;
     border-radius: 10px;
     padding: 25px;
-    height: 930px;
+    max-height: 930px;
     position: relative;
 
     .close-img {
@@ -40,14 +40,16 @@
             }
 
             .title-input {
+                box-sizing: border-box;
                 font-size: 32px;
                 line-height: 37px;
                 font-weight: 400;
             }
 
             .description-input {
+                box-sizing: border-box;
                 resize: none;
-                height: 725px;
+                min-height: 725px;
                 font-size: 24px;
                 line-height: 28px;
                 font-weight: 400;

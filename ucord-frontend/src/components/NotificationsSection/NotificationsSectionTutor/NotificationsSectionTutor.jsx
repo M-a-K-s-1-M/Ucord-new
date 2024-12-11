@@ -167,8 +167,9 @@ export default function NotificationsSectionTutor() {
                             className='select'
                         />
                     </div>
-
-                    <button className='btn-search'><img src='../../../../public/search.png' /></button>
+                    <div className="btn-wrapper">
+                        <button className='btn-search'><img src='../../../../public/search.png' /></button>
+                    </div>
                 </form>
 
                 <form className='form-ad'>
