@@ -1,8 +1,11 @@
-import React from 'react'
+import { useState } from "react";
+import ChatModalTutor from "../../Modal/ChatModal/ChatModalTutor/ChatModalTutor";
 
 export default function ChatsListDecided({ onClickChat }) {
+    const [isChat, setIsChat] = useState(false);
     return (
         <div className="chats-list-wrapper">
+            {isChat && <ChatModalTutor onClickClose={() => setIsChat(false)} />}
             <ul className="chats-list">
                 <li className='chat-item'>
                     <div className='info-chat-wrapper'>
@@ -19,7 +22,7 @@ export default function ChatsListDecided({ onClickChat }) {
                             <p className='student'>Костылев Эдуард Сергеевич</p>
                             <p className='group'>РИ-230941</p>
                         </div>
-                        <button type='button' className='btn-chat' onClick={onClickChat}>Чат</button>
+                        <button type='button' className='btn-chat' onClick={() => setIsChat(true)}>Чат</button>
                     </div>
                 </li>
 
