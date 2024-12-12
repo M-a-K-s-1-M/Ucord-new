@@ -6,7 +6,7 @@
     @include bg-wrapper;
 }
 
-.chat-container-t {
+.chat-ticket-container-t {
     background-color: #EADCE8;
     position: relative;
     box-sizing: border-box;
@@ -40,6 +40,10 @@
 
     .status-color.decided {
         background-color: #13E800;
+    }
+
+    .status-color.expected {
+        background-color: #FF8D1B;
     }
 
     .chat-wrapper {

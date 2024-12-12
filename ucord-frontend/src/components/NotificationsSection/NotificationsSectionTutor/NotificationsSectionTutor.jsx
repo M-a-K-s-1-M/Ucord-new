@@ -81,10 +81,6 @@ export default function NotificationsSectionTutor() {
 
     const [selectedStudents, setSelectedStudents] = useState([]);
 
-    const handleSubmitFilter = (evt) => {
-        evt.preventDefault();
-    }
-
     const handleChangeGroup = (selectedOptions) => {
         setGroup(selectedOptions);;
     };
@@ -114,12 +110,20 @@ export default function NotificationsSectionTutor() {
         setSelectedStudents(e.target.checked ? students : []);
     };
 
+    const handleSubmitFilter = (evt) => {
+        evt.preventDefault();
+    }
+
+    const handleSubmitAd = (evt) => {
+        evt.preventDefault();
+    }
+
 
     return (
         <section className="notifications-t">
             <div className="ads-container">
-                <form className='form-filter'>
-                    <div className='input-wrapper' onSubmit={handleSubmitFilter}>
+                <form className='form-filter' onSubmit={handleSubmitFilter}>
+                    <div className='input-wrapper'>
                         <label htmlFor="group">Группа</label>
                         <MultiSelect
                             options={colourOptions}
@@ -172,7 +176,7 @@ export default function NotificationsSectionTutor() {
                     </div>
                 </form>
 
-                <form className='form-ad'>
+                <form className='form-ad' onSubmit={handleSubmitAd}>
                     <div className="theme-ad-container">
                         <label htmlFor="themeAd" />
                         <input
@@ -197,7 +201,8 @@ export default function NotificationsSectionTutor() {
                         />
                     </div>
 
-                    <button type="submit" className="btn-publish">Выложить</button>
+                    {selectedStudents.length !== 0 ? <button type="submit" className="btn-publish">Выложить</button> : <button type="submit" className="btn-publish blocked">Выложить</button>}
+
                 </form>
             </div>
 

@@ -4,7 +4,7 @@ import './Header.scss'
 
 export default function Header() {
     // const currentUserRole = useRoles();
-    const currentUserRole = 'student';
+    const currentUserRole = 'tutor';
 
     const tabs = {
         tutor: [

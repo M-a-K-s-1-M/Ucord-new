@@ -131,6 +131,10 @@
                 bottom: 30px;
             }
 
+            .btn-publish.blocked {
+                pointer-events: none;
+            }
+
         }
     }
 
