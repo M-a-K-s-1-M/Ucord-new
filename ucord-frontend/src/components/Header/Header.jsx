@@ -2,9 +2,9 @@ import { Link, NavLink } from 'react-router-dom'
 import './Header.scss'
 // import { useRoles } from '../../hooks/useRoles';
 
-export default function Header() {
+export default function Header({ role }) {
     // const currentUserRole = useRoles();
-    const currentUserRole = 'student';
+    const currentUserRole = role;
 
     const tabs = {
         tutor: [
