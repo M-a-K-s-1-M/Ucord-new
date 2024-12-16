@@ -4,18 +4,18 @@ import './Header.scss'
 
 export default function Header() {
     // const currentUserRole = useRoles();
-    const currentUserRole = 'tutor';
+    const currentUserRole = 'student';
 
     const tabs = {
         tutor: [
-            { label: 'Уведомления', to: '/tutor/notifications' },
-            { label: 'Тикеты', to: '/tutor/tickets' },
-            { label: 'Профиль', to: '/tutor/profile' },
+            { label: 'Уведомления', to: '/main/notifications' },
+            { label: 'Тикеты', to: '/main/tickets' },
+            { label: 'Профиль', to: '/main/profile' },
         ],
         student: [
-            { label: 'Уведомления', to: '/student/notifications' },
-            { label: 'Дедлайны', to: '/student/deadlines' },
-            { label: 'Профиль', to: '/student/profile' },
+            { label: 'Уведомления', to: '/main/notifications' },
+            { label: 'Дедлайны', to: '/main/deadlines' },
+            { label: 'Профиль', to: '/main/profile' },
         ]
     };
 
