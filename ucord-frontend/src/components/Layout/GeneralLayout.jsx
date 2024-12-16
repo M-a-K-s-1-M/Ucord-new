@@ -16,11 +16,11 @@ import TutorLayout from './TutorLayout';
 
 
 export default function GeneralLayout() {
-    const role = 'student';
+    const role = 'tutor';
     return (
         <Routes>
             {role === 'student' && <>
-                <Route path='/' element={<StudentLayout />}>
+                <Route path='/' element={<StudentLayout role='student' />}>
                     {/* Студентские маршруты */}
                     <Route index element={<DefaultPage />} />
                     <Route path="notifications" element={<NotificationsSectionStudent />} />
@@ -30,7 +30,7 @@ export default function GeneralLayout() {
             </>}
 
             {role === 'tutor' && <>
-                <Route path='/' element={<TutorLayout />}>
+                <Route path='/' element={<TutorLayout role='tutor' />}>
                     {/* Тьюторские маршруты */}
                     < Route index element={< DefaultPage />} />
                     < Route path="notifications" element={< NotificationsSectionTutor />} />
