@@ -10,7 +10,7 @@ export default function LogoutModal({ onClose }) {
             <p className='description-logout'>*при подтверждении вы выйдите из данного профиля и вернётесь на страницу авторизации.</p>
 
             <div className='btn-logout-wrapper'>
-                <button className='btn-yes' onClick={() => navigate('signin')}>Да</button>
+                <button className='btn-yes' onClick={() => navigate('/')}>Да</button>
                 <button className='btn-no' onClick={onClose}>Нет</button>
             </div>
         </section>

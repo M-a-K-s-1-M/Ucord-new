@@ -27,6 +27,7 @@ export default function TicketsList() {
                         <button type='button' className='btn-take-ticket' onClick={() => setIsChatTicket(true)}>Взять тикет</button>
                     </div>
                 </li>
+
             </ul>
         </>
     )

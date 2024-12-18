@@ -149,10 +149,10 @@ const MultiSelect = (props) => {
 
         if (filteredSelectedOptions?.length > 0) {
             if (filteredSelectedOptions?.length === filteredOptions?.length)
-                selectAllLabel.current = `All (${filteredOptions.length}) selected`;
+                selectAllLabel.current = `Все (${filteredOptions.length}) выбраны`;
             else
-                selectAllLabel.current = `${filteredSelectedOptions?.length} / ${filteredOptions.length} selected`;
-        } else selectAllLabel.current = "Select all";
+                selectAllLabel.current = `${filteredSelectedOptions?.length} / ${filteredOptions.length} Выбраны`;
+        } else selectAllLabel.current = "Выбрать все";
 
         allOption.label = selectAllLabel.current;
 
