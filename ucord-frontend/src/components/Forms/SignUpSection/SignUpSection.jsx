@@ -3,14 +3,12 @@ import Input from "../Input";
 import { Link, useNavigate } from "react-router-dom";
 import './SignUpSection.scss'
 import axios from "axios";
-import { validateAndJoinFIO } from "../ValidateAndJoinFIO";
 
 export default function SignUpForm() {
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('')
 
     const [inputInfo, setInputInfo] = useState({
-        username: '',
         email: '',
         password: '',
         passwordRepeat: '',
@@ -21,13 +19,11 @@ export default function SignUpForm() {
     async function handleSubmit(evt) {
         evt.preventDefault();
 
-        const usernameCorrect = validateAndJoinFIO(inputInfo.username);
 
         const config = {
             method: 'post',
             url: 'http://localhost:8080/api/v1/auth/register',
             data: {
-                username: usernameCorrect,
                 email: inputInfo.email,
                 password: inputInfo.password,
                 role: inputInfo.role,
@@ -73,23 +69,6 @@ export default function SignUpForm() {
         <section className="sign-up">
             <img src='../../../../public/imageAuthorization.png' alt='' />
             <form className="auth-form" onSubmit={handleSubmit}>
-
-                <p>ФИО</p>
-                <Input
-                    type='text'
-                    id='username'
-                    name='username'
-                    autoComplete='off'
-                    value={setInputInfo.username}
-                    onChange={(evt) => {
-                        setInputInfo(props => {
-                            return {
-                                ...props,
-                                username: evt.target.value
-                            }
-                        })
-                    }}
-                />
 
                 <p>Email</p>
                 <Input

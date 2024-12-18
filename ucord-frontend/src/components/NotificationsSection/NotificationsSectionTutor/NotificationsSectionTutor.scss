@@ -23,37 +23,60 @@
             padding: 45px 40px;
             padding-top: 25px;
             display: grid;
-            grid-template-columns: 20% 20% 20% 20% 10%;
+            grid-template-columns: 1fr 5%;
             align-items: center;
             gap: 3%;
             margin-bottom: 15px;
 
-            .input-wrapper {
-                text-align: center;
+            .inputs-wrapper {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 3%;
+                justify-content: center;
 
-                label {
-                    box-sizing: border-box;
-                    display: block;
-                    font-family: 'Jura', sans-serif;
-                    font-size: 24px;
-                    font-weight: 400;
-                    margin-bottom: 5px;
+                .input-wrapper {
+                    text-align: center;
+
+                    label {
+                        box-sizing: border-box;
+                        display: block;
+                        font-family: 'Jura', sans-serif;
+                        font-size: 24px;
+                        font-weight: 400;
+                        margin-bottom: 5px;
+                    }
+
+                    .select {
+                        margin: 0 auto;
+                        max-width: 350px;
+                        min-width: 150px;
+                        font-size: 16px;
+                        color: #000;
+                        font-size: 12px;
+                    }
+
+                    .select.group,
+                    .select.educational-group {
+                        min-width: 170px;
+                    }
+
+                    .select.student,
+                    .select.teacher {
+                        min-width: 230px;
+                    }
+
+                    .select.direction {
+                        min-width: 270px;
+                    }
                 }
-
-                .select {
-                    margin: 0 auto;
-                    max-width: 200px;
-                    min-width: 70px;
-                    font-size: 16px;
-                    color: #000;
-                }
-
             }
+
 
             .btn-wrapper {
                 text-align: center;
 
                 .btn-search {
+                    width: 50px;
                     background-color: #FFF;
                     border: none;
                     outline: none;
@@ -133,6 +156,7 @@
 
             .btn-publish.blocked {
                 pointer-events: none;
+                background-color: #B97CAF;
             }
 
         }

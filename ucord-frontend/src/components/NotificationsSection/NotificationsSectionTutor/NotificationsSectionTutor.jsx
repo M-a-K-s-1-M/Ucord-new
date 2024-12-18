@@ -76,10 +76,13 @@ const students = [
 export default function NotificationsSectionTutor() {
     const [group, setGroup] = useState([])
     const [student, setStudent] = useState([])
-    const [curs, setCurs] = useState([]);
+    const [teachers, setTeachers] = useState([]);
     const [direction, setDirection] = useState([]);
+    const [educationalGroup, setEducationalGroup] = useState([]);
 
     const [selectedStudents, setSelectedStudents] = useState([]);
+
+    //Выбранные элементы в фильтрах
 
     const handleChangeGroup = (selectedOptions) => {
         setGroup(selectedOptions);;
@@ -89,13 +92,19 @@ export default function NotificationsSectionTutor() {
         setStudent(selectedOptions);;
     };
 
-    const handleChangeCurs = (selectedOptions) => {
-        setCurs(selectedOptions);;
+    const handleChangeTeachers = (selectedOptions) => {
+        setTeachers(selectedOptions);;
     };
 
     const handleChangeDirection = (selectedOptions) => {
         setDirection(selectedOptions);;
     };
+
+    const handleChangeEducationalGroup = (selectedOptions) => {
+        setEducationalGroup(selectedOptions);
+    }
+
+    // ------  //
 
     const handleStudentSelect = (e, student) => {
         const isChecked = e.target.checked;
@@ -106,8 +115,8 @@ export default function NotificationsSectionTutor() {
         }
     };
 
-    const handleSelectAll = (e) => {
-        setSelectedStudents(e.target.checked ? students : []);
+    const handleSelectAll = (evt) => {
+        setSelectedStudents(evt.target.checked ? students : []);
     };
 
     const handleSubmitFilter = (evt) => {
@@ -123,54 +132,73 @@ export default function NotificationsSectionTutor() {
         <section className="notifications-t">
             <div className="ads-container">
                 <form className='form-filter' onSubmit={handleSubmitFilter}>
-                    <div className='input-wrapper'>
-                        <label htmlFor="group">Группа</label>
-                        <MultiSelect
-                            options={colourOptions}
-                            value={group}
-                            onChange={handleChangeGroup}
-                            isSelectAll={true}
-                            menuPlacement={"bottom"}
-                            className='select'
-                        />
+                    <div className="inputs-wrapper">
+                        <div className='input-wrapper'>
+                            <label htmlFor="group">Группа</label>
+                            <MultiSelect
+                                options={colourOptions}
+                                value={group}
+                                onChange={handleChangeGroup}
+                                isSelectAll={true}
+                                menuPlacement={"bottom"}
+                                className='select group'
+                                id='group'
+                            />
+                        </div>
+
+                        <div className="input-wrapper">
+                            <label htmlFor="students">Студент(ы)</label>
+                            <MultiSelect
+                                options={colourOptions}
+                                value={student}
+                                onChange={handleChangeStudent}
+                                isSelectAll={true}
+                                menuPlacement={"bottom"}
+                                className='select student'
+                                id='students'
+                            />
+                        </div>
+
+                        <div className="input-wrapper">
+                            <label htmlFor="teachers">Препод(ы)</label>
+                            <MultiSelect
+                                options={colourOptions}
+                                value={teachers}
+                                onChange={handleChangeTeachers}
+                                isSelectAll={true}
+                                menuPlacement={"bottom"}
+                                className='select teacher'
+                                id='teachers'
+                            />
+                        </div>
+
+                        <div className="input-wrapper">
+                            <label htmlFor="direction">Направление</label>
+                            <MultiSelect
+                                options={colourOptions}
+                                value={direction}
+                                onChange={handleChangeDirection}
+                                isSelectAll={true}
+                                menuPlacement={"bottom"}
+                                className='select direction'
+                                id='direction'
+                            />
+                        </div>
+
+                        <div className='input-wrapper'>
+                            <label htmlFor="educationalGroup">Учебная команда</label>
+                            <MultiSelect
+                                options={colourOptions}
+                                value={educationalGroup}
+                                onChange={handleChangeEducationalGroup}
+                                isSelectAll={true}
+                                menuPlacement={"bottom"}
+                                className='select educational-group'
+                                id='educationalGroup'
+                            />
+                        </div>
                     </div>
 
-                    <div className="input-wrapper">
-                        <label htmlFor="students">Студент(ы)</label>
-                        <MultiSelect
-                            options={colourOptions}
-                            value={student}
-                            onChange={handleChangeStudent}
-                            isSelectAll={true}
-                            menuPlacement={"bottom"}
-                            className='select'
-                        />
-                    </div>
-
-                    <div className="input-wrapper">
-                        <label htmlFor="curs">Курс</label>
-                        <MultiSelect
-                            options={colourOptions}
-                            value={curs}
-                            onChange={handleChangeCurs}
-                            isSelectAll={true}
-                            menuPlacement={"bottom"}
-                            className='select'
-                            id='curs'
-                        />
-                    </div>
-
-                    <div className="input-wrapper">
-                        <label htmlFor="direction">Направление</label>
-                        <MultiSelect
-                            options={colourOptions}
-                            value={direction}
-                            onChange={handleChangeDirection}
-                            isSelectAll={true}
-                            menuPlacement={"bottom"}
-                            className='select'
-                        />
-                    </div>
                     <div className="btn-wrapper">
                         <button className='btn-search'><img src='../../../../public/search.png' /></button>
                     </div>

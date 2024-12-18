@@ -23,6 +23,16 @@
             margin-bottom: 10px;
         }
 
+        .user-info-form {
+            input {
+                &:last-child {
+                    margin-bottom: 30px;
+                    ;
+                }
+            }
+        }
+
+
         label,
         input {
             display: block;
