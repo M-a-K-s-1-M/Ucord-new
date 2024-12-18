@@ -9,23 +9,23 @@ export default function ProfileStudent() {
         <section className="profile-container">
             <section className="profile">
                 <h3 className='title-form'>Основная информация</h3>
-                <form>
+                <form className='user-info-form'>
                     <label htmlFor="role">Роль</label>
                     <input type='text' id='role' name="role" disabled />
 
                     <label htmlFor="name">Имя</label>
-                    <input type='text' id='name' name="name" required />
+                    <input type='text' id='name' name="name" disabled />
 
                     <label htmlFor="surname">Фамилия</label>
-                    <input type='text' id='surname' name="surname" required />
+                    <input type='text' id='surname' name="surname" disabled />
 
                     <label htmlFor="patronymic">Отчество</label>
-                    <input type='text' id='patronymic' name="patronymic" required />
+                    <input type='text' id='patronymic' name="patronymic" disabled />
 
                     <label htmlFor="email">Почта</label>
-                    <input type='text' id='email' name="email" required />
+                    <input type='text' id='email' name="email" disabled />
 
-                    <button className="btn-save disabled" type="submit">Сохранить</button>
+                    {/* <button className="btn-save disabled" type="submit">Сохранить</button> */}
                 </form>
 
                 <h3 className='title-form'>Смена пароля</h3>
